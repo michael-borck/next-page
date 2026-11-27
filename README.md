@@ -8,6 +8,7 @@ Today's list stays closed so you can finish it. Five marks, a two-minute evening
 
 | Path | What it is |
 |---|---|
+| `index.html` | Landing page for the system: the three rules and links to every piece |
 | `next-page-guide.html` | The full v2 guide (interactive page) |
 | `print/card-a7.html` | Source for the A7 inside-cover card (4 per A4 sheet, fold in half) |
 | `print/card-a7-level0.html` | Source for the level-0 card: just the three starting rules |
@@ -15,6 +16,10 @@ Today's list stays closed so you can finish it. Five marks, a two-minute evening
 | `print/*.pdf` | Rendered printables. Print page 1 only, single-sided, at 100% |
 | `archive/pocket-flip-notebook-v1.html` | The original v1 guide |
 | `render.sh` | Rebuilds the PDFs from the HTML sources |
+
+The companion **Slip Deck** (24 cards, one per way the system slips, each with
+its fix) lives in its own repo at `Projects/decks/slip-deck`. The landing page
+links to it at `https://michael-borck.github.io/slip-deck/`.
 
 ## Rendering
 
