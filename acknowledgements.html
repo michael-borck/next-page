@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-AU"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Next Page Acknowledgements</title>
+<meta name="description" content="Where Next Page's ideas come from: what it borrows from GTD, Do It Tomorrow, Bullet Journal and others, what it shares, and what it leaves out.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Next Page — acknowledgements and comparison">
+<meta property="og:description" content="What Next Page borrows from GTD, Do It Tomorrow, Bullet Journal and others, what it shares, and what it leaves out.">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#E6EAE7;--surface:#F1F4F2;--card:#FFFFFF;--text:#17211E;--muted:#4C5A55;--accent:#2F6F55;--rule:#C9D2CD;--head:#1B2A57;--hl:#F4DC6B;
+--t-borrowed:#2F6F55;--t-shared:#8A6A1F;--t-not:#6B7672;
+--hand:"Kalam","Bradley Hand",cursive;--sans:"Public Sans",Helvetica,Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151B19;--surface:#1D2523;--card:#1A211F;--text:#E3EAE6;--muted:#9DAAA4;--accent:#6FBF9B;--rule:#34403B;--head:#E3EAE6;--t-borrowed:#6FBF9B;--t-shared:#D9B45A;--t-not:#9DAAA4}}
+:root[data-theme="dark"]{--bg:#151B19;--surface:#1D2523;--card:#1A211F;--text:#E3EAE6;--muted:#9DAAA4;--accent:#6FBF9B;--rule:#34403B;--head:#E3EAE6;--t-borrowed:#6FBF9B;--t-shared:#D9B45A;--t-not:#9DAAA4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.55}
+a{color:var(--accent)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.back{display:inline-block;margin-top:28px;font-size:14px;font-weight:700;text-decoration:none}
+h1{font-family:var(--hand);font-size:clamp(38px,5.5vw,56px);line-height:1.05;color:var(--head);margin-top:10px}
+h2{font-size:clamp(22px,3vw,28px);line-height:1.15;margin-top:8px}
+.lede{font-size:18px;color:var(--muted);margin-top:14px;max-width:700px}
+header{padding:8px 0 40px}
+section{padding:48px 0;border-top:1px solid var(--rule)}
+.key{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:20px;font-size:14px;color:var(--muted)}
+.tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--t);color:var(--t);border-radius:20px;padding:2px 9px;white-space:nowrap}
+.tag.b{--t:var(--t-borrowed)}.tag.s{--t:var(--t-shared)}.tag.n{--t:var(--t-not)}
+
+table{width:100%;border-collapse:collapse;margin-top:24px;background:var(--card);border:1px solid var(--rule);border-radius:10px;overflow:hidden;font-size:14.5px}
+th{text-align:left;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--surface);padding:12px 14px;border-bottom:1px solid var(--rule)}
+td{padding:14px;vertical-align:top;border-bottom:1px solid var(--rule)}
+tr:last-child td{border-bottom:0}
+td.sys b{display:block;font-size:15.5px}
+td.sys span:not(.tag){display:block;font-size:13px;color:var(--muted);margin-top:2px}
+td.sys .tag{margin-top:8px}
+td .cards{font-size:12.5px;color:var(--muted);display:block;margin-top:4px}
+col.c1{width:20%}col.c2{width:24%}col.c3{width:30%}col.c4{width:26%}
+
+.thanks{max-width:720px;font-size:16px;color:var(--muted)}
+.thanks p+p{margin-top:12px}
+footer{padding:30px 0;border-top:1px solid var(--rule);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:760px){
+  table,tbody,tr,td{display:block;width:100%}
+  thead,colgroup{display:none}
+  table{background:transparent;border:0}
+  tr{background:var(--card);border:1px solid var(--rule);border-radius:10px;margin-bottom:14px;overflow:hidden}
+  td{border-bottom:1px dotted var(--rule);padding:12px 14px}
+  td:last-child{border-bottom:0}
+  td[data-h]::before{content:attr(data-h);display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+}
+</style></head><body>
+
+<header><div class="wrap">
+  <a class="back" href="index.html">← Next Page</a>
+  <div class="kicker" style="margin-top:24px">Acknowledgements</div>
+  <h1>Other people&rsquo;s ideas, cut down to a pocket.</h1>
+  <p class="lede">Next Page invents very little. It takes a handful of ideas from systems that already work and drops the parts that need upkeep. This page says where each idea came from, what was left behind, and which popular systems it doesn&rsquo;t use at all.</p>
+  <div class="key">
+    <span><span class="tag b">Borrowed</span> Next Page uses the idea directly</span>
+    <span><span class="tag s">Shared</span> Same idea, reached separately or in passing</span>
+    <span><span class="tag n">Not used</span> Left out on purpose</span>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="kicker">Compared</div>
+  <h2>Sixteen systems and ideas, side by side</h2>
+  <table>
+    <colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+    <thead><tr><th>System</th><th>The idea</th><th>What Next Page takes</th><th>What it leaves out</th></tr></thead>
+    <tbody>
+
+    <tr><td class="sys"><b>Do It Tomorrow</b><span>Mark Forster, 2006</span><span class="tag b">Borrowed</span></td>
+      <td data-h="The idea">A closed “will do” list for each day. Anything new waits until tomorrow.</td>
+      <td data-h="What Next Page takes">The core rule: today’s list is closed and new things go on tomorrow’s page. Also the pressure on items that keep moving.<span class="cards">Rule 2 · Slip cards 04, 05, 06, 10</span></td>
+      <td data-h="What it leaves out">The task diary layout and the formal backlog-clearing project.</td></tr>
+
+    <tr><td class="sys"><b>Getting Things Done</b><span>David Allen, 2001</span><span class="tag b">Borrowed</span></td>
+      <td data-h="The idea">Capture every open loop, turn each into a next action, sort into lists, review weekly.</td>
+      <td data-h="What Next Page takes">Next physical action, the Waiting for and Someday pages, the calendar for hard dates, the weekly look back, and the two-minute rule in the evening sort.<span class="cards">Rule 3 · Slip cards 03, 15–18, 22</span></td>
+      <td data-h="What it leaves out">Contexts, capturing every loop, project outcome lists and the full weekly review checklist.</td></tr>
+
+    <tr><td class="sys"><b>Bullet Journal</b><span>Ryder Carroll, 2013</span><span class="tag b">Borrowed</span></td>
+      <td data-h="The idea">Rapid logging with short bullets; migrate unfinished items by hand so each one is a decision.</td>
+      <td data-h="What Next Page takes">The marks (• × › –) and migration as a decision: rewriting is the filter.<span class="cards">Slip cards 04, 14, 21</span></td>
+      <td data-h="What it leaves out">The index, future log, monthly log, collections and decorated spreads.</td></tr>
+
+    <tr><td class="sys"><b>The Now Habit</b><span>Neil Fiore, 1989</span><span class="tag b">Borrowed</span></td>
+      <td data-h="The idea">Beat procrastination with short starts, guilt-free stopping and play scheduled first.</td>
+      <td data-h="What Next Page takes">Thirty-minute starts on the focus item, permission to stop, and starting small after a gap.<span class="cards">Slip cards 02, 08, 09, 11, 12, 23</span></td>
+      <td data-h="What it leaves out">The Unschedule (planning leisure first) and the reverse calendar.</td></tr>
+
+    <tr><td class="sys"><b>D-A-F-T</b><span>Andrea Cannavina</span><span class="tag b">Borrowed</span></td>
+      <td data-h="The idea">Four verbs for clearing paper and email: Defer, Act, File, Toss.</td>
+      <td data-h="What Next Page takes">The two-minute evening sort for leftover items, from level 1 up.<span class="cards">Full card · fold-up guide p4</span></td>
+      <td data-h="What it leaves out">Its use as an inbox and paperwork method.</td></tr>
+
+    <tr><td class="sys"><b>Habit stacking</b><span>BJ Fogg, <em>Tiny Habits</em> (2019); James Clear, <em>Atomic Habits</em> (2018)</span><span class="tag b">Borrowed</span></td>
+      <td data-h="The idea">Anchor a new habit to one you already have. Clear adds “never miss twice”.</td>
+      <td data-h="What Next Page takes">Hanging the Sunday look back on an existing routine, and restarting the day after a gap.<span class="cards">Slip cards 11, 22</span></td>
+      <td data-h="What it leaves out">Habit design for anything beyond the notebook itself.</td></tr>
+
+    <tr><td class="sys"><b>The planning fallacy</b><span>Kahneman &amp; Tversky, 1979</span><span class="tag b">Borrowed</span></td>
+      <td data-h="The idea">Research, not a system: people reliably underestimate how long their own tasks take.</td>
+      <td data-h="What Next Page takes">The capacity check: plan the hours you have, not the day you want.<span class="cards">Slip card 01</span></td>
+      <td data-h="What it leaves out">Formal estimation and tracking.</td></tr>
+
+    <tr><td class="sys"><b>Ivy Lee method</b><span>Ivy Lee, about 1918</span><span class="tag s">Shared</span></td>
+      <td data-h="The idea">Each evening, write tomorrow’s six most important tasks in order. Work down them. Carry the rest.</td>
+      <td data-h="What Next Page takes">Nothing taken directly, but level 0 is close to it. A short list, written ahead, with leftovers carried forward, has been around for a century.</td>
+      <td data-h="What it leaves out">The fixed six and the strict order.</td></tr>
+
+    <tr><td class="sys"><b>Personal Kanban</b><span>Jim Benson &amp; Tonianne DeMaria Barry, 2011</span><span class="tag s">Shared</span></td>
+      <td data-h="The idea">Two rules: make your work visible, and limit work in progress.</td>
+      <td data-h="What Next Page takes">A work-in-progress limit: no more than five projects on the Now page.<span class="cards">Slip card 17</span></td>
+      <td data-h="What it leaves out">The board, columns and moving cards.</td></tr>
+
+    <tr><td class="sys"><b>Pomodoro Technique</b><span>Francesco Cirillo, late 1980s</span><span class="tag s">Shared</span></td>
+      <td data-h="The idea">Work in 25-minute timed blocks with short breaks, and count them.</td>
+      <td data-h="What Next Page takes">A fixed block to start the focus item (thirty minutes, from Fiore).</td>
+      <td data-h="What it leaves out">The timer, the counting and the break schedule.</td></tr>
+
+    <tr><td class="sys"><b>Time blocking</b><span>Popularised by Cal Newport, <em>Deep Work</em> (2016)</span><span class="tag s">Shared</span></td>
+      <td data-h="The idea">Give every hour of the day a job in advance.</td>
+      <td data-h="What Next Page takes">Only the capacity check: count your free hours before you write the list.<span class="cards">Slip card 01</span></td>
+      <td data-h="What it leaves out">The hour-by-hour schedule and re-planning it when the day changes.</td></tr>
+
+    <tr><td class="sys"><b>Eisenhower matrix</b><span>Popularised by Stephen Covey, 1989</span><span class="tag n">Not used</span></td>
+      <td data-h="The idea">Sort every task into urgent/important quadrants.</td>
+      <td data-h="What Next Page takes">One question in its place: which single item would make today count?<span class="cards">Slip card 02</span></td>
+      <td data-h="What it leaves out">Sorting every item into four boxes, which is upkeep.</td></tr>
+
+    <tr><td class="sys"><b>Trello and Kanban apps</b><span>Trello launched 2011</span><span class="tag n">Not used</span></td>
+      <td data-h="The idea">Digital boards of cards moved across columns.</td>
+      <td data-h="What Next Page takes">Nothing. The notebook’s only columns are today and tomorrow.</td>
+      <td data-h="What it leaves out">A screen to open and a board to keep tidy. Fine alongside Next Page for shared team work.</td></tr>
+
+    <tr><td class="sys"><b>Habit trackers</b><span>Common in Bullet Journal practice</span><span class="tag n">Not used</span></td>
+      <td data-h="The idea">A grid of habits ticked off every day.</td>
+      <td data-h="What Next Page takes">Nothing at level 0. If you want one, track a single habit on the Weeks page.</td>
+      <td data-h="What it leaves out">Another daily grid to fill in, and the guilt of a broken streak.</td></tr>
+
+    <tr><td class="sys"><b>The 5 Second Rule</b><span>Mel Robbins, 2017</span><span class="tag n">Not used</span></td>
+      <td data-h="The idea">Count 5-4-3-2-1 and move before hesitation wins.</td>
+      <td data-h="What Next Page takes">Nothing directly. It works well with slip card 23 if you need a trigger to start the top item.<span class="cards">Pairs with slip card 23</span></td>
+      <td data-h="What it leaves out">Nothing to leave: it’s a starting trick, not a list system.</td></tr>
+
+    <tr><td class="sys"><b>Autofocus</b><span>Mark Forster, 2009</span><span class="tag n">Not used</span></td>
+      <td data-h="The idea">One long open list; scan it and work on whatever stands out.</td>
+      <td data-h="What Next Page takes">Nothing. Next Page closes the list that Autofocus keeps open.</td>
+      <td data-h="What it leaves out">The long list and the scanning.</td></tr>
+
+    </tbody>
+  </table>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">Thanks</div>
+  <h2>With gratitude</h2>
+  <div class="thanks">
+    <p>To Mark Forster, David Allen, Ryder Carroll, Neil Fiore and Andrea Cannavina, whose ideas make up most of Next Page. Their books and sites are worth reading in full; this system is a cut-down, and anything lost in the cutting is my mistake, not theirs.</p>
+    <p>None of these authors has reviewed or endorsed Next Page or the Slip Deck. Names are used only to say where the ideas came from.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span><a href="index.html">Next Page</a></span>
+  <span><a href="https://michael-borck.github.io/slip-deck/">The Slip Deck</a></span>
+  <span>Dr Michael Borck</span>
+</div></footer>
+</body></html>

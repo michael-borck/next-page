@@ -9,6 +9,7 @@ Today's list stays closed so you can finish it. Five marks, a two-minute evening
 | Path | What it is |
 |---|---|
 | `index.html` | Landing page for the system: the three rules and links to every piece |
+| `acknowledgements.html` | Where the ideas come from: a table comparing Next Page with 16 systems (borrowed, shared, not used) |
 | `next-page-guide.html` | The full v2 guide (interactive page) |
 | `print/card-a7.html` | Source for the A7 inside-cover card (4 per A4 sheet, fold in half) |
 | `print/card-a7-level0.html` | Source for the level-0 card: just the three starting rules |
@@ -39,4 +40,6 @@ Print at **Actual size / 100%** with "Fit to page" turned off.
 
 Ideas from Bullet Journal (Ryder Carroll), *Do It Tomorrow* (Mark Forster),
 D-A-F-T (Andrea Cannavina), *Getting Things Done* (David Allen) and
-*The Now Habit* (Neil Fiore).
+*The Now Habit* (Neil Fiore). See `acknowledgements.html` for what each one
+contributes, what was left out, and how Next Page compares with Kanban,
+Pomodoro, time blocking, the Eisenhower matrix and others.
