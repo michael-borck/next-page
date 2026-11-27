@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Next Page fold-up guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@page { size: A4 landscape; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: "Public Sans", Helvetica, Arial, sans-serif; color: #17211E; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+:root { --ink: #1B2A57; --faint: #8791B0; --accent: #2F6F55; --muted: #5A6763; --hl: #F4DC6B; --line: #9AA7A1; --tint: #EEF2EF; }
+
+.sheet { position: relative; width: 297mm; height: 210mm; overflow: hidden; page-break-after: always; }
+.pg { position: absolute; width: 74.25mm; height: 105mm; padding: 7mm 6.2mm 5.5mm; display: flex; flex-direction: column; font-size: 7.2pt; line-height: 1.4; }
+.c0 { left: 0; } .c1 { left: 74.25mm; } .c2 { left: 148.5mm; } .c3 { left: 222.75mm; }
+.r0 { top: 0; transform: rotate(180deg); } .r1 { top: 105mm; }
+.cut { position: absolute; top: 105mm; left: 74.25mm; width: 148.5mm; border-top: 0.3mm dashed var(--line); }
+.cut-tag { position: absolute; top: 103.4mm; left: 145mm; font-size: 5pt; color: var(--line); background: #fff; padding: 0 1mm; letter-spacing: 0.08em; }
+
+h2 { font-family: "Kalam", cursive; color: var(--ink); font-size: 14pt; line-height: 1.05; margin: 0 0 2.2mm; }
+h4 { margin: 2.4mm 0 0.6mm; font-size: 5.6pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+p { margin: 0 0 1.6mm; }
+.num { margin-top: auto; font-size: 5.5pt; color: var(--muted); display: flex; justify-content: space-between; }
+table { border-collapse: collapse; width: 100%; }
+td { padding: 0.5mm 0; vertical-align: baseline; border-bottom: 0.2mm solid #DCE3DF; }
+tr:last-child td { border-bottom: none; }
+td.k { font-weight: 700; width: 13mm; color: var(--accent); }
+td.g { font-family: "Kalam", cursive; font-weight: 700; color: var(--accent); font-size: 10pt; width: 7mm; line-height: 1.05; }
+ul { margin: 0; padding-left: 3mm; }
+li { margin-bottom: 0.6mm; }
+ul.box { list-style: none; padding: 0; }
+ul.box li { display: flex; gap: 1.5mm; align-items: baseline; }
+ul.box li::before { content: ""; flex: none; width: 1.9mm; height: 1.9mm; border: 0.25mm solid var(--accent); border-radius: 0.3mm; transform: translateY(0.3mm); }
+.note { background: var(--tint); border-left: 0.6mm solid var(--accent); padding: 1.4mm 2mm; margin: 1.6mm 0; }
+.note p { margin: 0; }
+.hand { font-family: "Kalam", cursive; color: var(--ink); }
+.hl { background: linear-gradient(transparent 14%, var(--hl) 14% 86%, transparent 86%); padding: 0 0.8mm; }
+
+/* mini notebook page drawing */
+.mini { border: 0.25mm solid #C3CCC7; border-radius: 0.8mm; padding: 1.6mm 2.4mm 1.8mm; font-family: "Kalam", cursive; color: var(--ink); font-size: 8pt; line-height: 1.45; background: #FBFCFA; }
+.mini .d { font-weight: 700; border-bottom: 0.35mm solid var(--ink); margin-bottom: 0.8mm; display: flex; justify-content: space-between; }
+.mini .d small { font-weight: 400; color: var(--faint); font-size: 6pt; }
+.mini .ln { white-space: nowrap; }
+.mini .ln b { display: inline-block; width: 3mm; text-align: center; }
+.mini .x { color: var(--faint); }
+.mini .closed { border-top: 0.45mm solid var(--ink); margin: 0.7mm 0; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm; }
+.pair .mini { font-size: 7pt; padding: 1.2mm 1.6mm; }
+
+/* cover */
+.cover { justify-content: space-between; padding-top: 10mm; }
+.cover .title { font-family: "Kalam", cursive; color: var(--ink); font-size: 30pt; font-weight: 700; line-height: 0.95; }
+.cover .sub { font-size: 7.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 800; margin-top: 3mm; }
+.cover .rule { font-family: "Kalam", cursive; color: var(--ink); font-size: 13pt; line-height: 1.25; border: 0.5mm solid var(--ink); border-radius: 1mm; padding: 2.5mm 3mm; transform: rotate(-1.2deg); }
+.cover .meta { font-size: 6pt; color: var(--muted); }
+
+/* levels */
+.lvl { display: grid; grid-template-columns: 6mm 1fr; gap: 0 1.5mm; padding: 1.1mm 0; border-bottom: 0.2mm solid #DCE3DF; }
+.lvl:last-of-type { border-bottom: none; }
+.lvl .n { font-family: "Kalam", cursive; font-weight: 700; font-size: 13pt; color: var(--accent); line-height: 1; }
+.lvl b { display: block; }
+.lvl span { color: var(--muted); }
+
+/* instructions page */
+.inst { padding: 14mm 20mm; font-size: 10pt; line-height: 1.45; display: grid; grid-template-columns: 1fr 112mm; gap: 14mm; }
+.inst h1 { font-family: "Kalam", cursive; color: var(--ink); font-size: 24pt; margin: 0 0 2mm; line-height: 1.1; }
+.inst h3 { font-size: 11pt; margin: 5mm 0 1.5mm; }
+.inst ol { padding-left: 5.5mm; margin: 0; }
+.inst li { margin-bottom: 1.8mm; }
+.inst p { margin: 0 0 2mm; }
+.inst svg { width: 100%; height: auto; display: block; }
+.inst svg text { font-family: "Public Sans", sans-serif; font-size: 3.4px; fill: #5A6763; }
+.dot{font-size:1.5em;line-height:0;vertical-align:-0.06em}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- top row, printed upside down: pages 5 4 3 2 -->
+  <div class="pg c0 r0">
+    <h2>When it slips</h2>
+    <h4>Moved three times?</h4>
+    <p>Break it into a smaller first step, give it a date on Later, or put a line through it. A task you keep moving is a decision you haven’t made.</p>
+    <h4>Missed some days?</h4>
+    <p>Don’t fill in the gap. Date today’s page, copy over only what still matters, carry on.</p>
+    <h4>Can’t finish the list?</h4>
+    <p>Three days running means one of these:</p>
+    <ul>
+      <li>doing a lot that isn’t on the list</li>
+      <li>agreed to too much (cut commitments)</li>
+      <li>no time left for ordinary life</li>
+    </ul>
+    <h4>Stuck on one task?</h4>
+    <p>Write the smallest start: “just find the folder”. Do 30 minutes, then you may stop. Start the next thing before a break.</p>
+    <div class="num"><span>Next Page</span><span>5</span></div>
+  </div>
+
+  <div class="pg c1 r0">
+    <h2>One day</h2>
+    <h4>Night before</h4>
+    <p>Tomorrow’s page already holds what turned up today. Add a <span class="hl">focus</span> line at the top (30 min, done first) and rule the line.</p>
+    <h4>During the day</h4>
+    <p>Focus first, then the list in any order. New things go on the next page.</p>
+    <h4>Evening sort · 2 min</h4>
+    <table>
+      <tr><td class="k">Act</td><td>Two minutes? Do it now. ×</td></tr>
+      <tr><td class="k">Defer</td><td>› tomorrow, or Later with a date</td></tr>
+      <tr><td class="k">File</td><td>› Now, Someday or Waiting for</td></tr>
+      <tr><td class="k">Toss</td><td>Line through it</td></tr>
+    </table>
+    <h4>Last line</h4>
+    <p>Energy out of 10 and one word: <span class="hand">E 6 · busy</span></p>
+    <div class="num"><span>Next Page</span><span>4</span></div>
+  </div>
+
+  <div class="pg c2 r0">
+    <h2>Five marks</h2>
+    <p>One at the start of every line. A plain dot is the only thing that still needs you.</p>
+    <table>
+      <tr><td class="g"><span class="dot">•</span></td><td><b>Task</b></td></tr>
+      <tr><td class="g">×</td><td><b>Done.</b> Drawn over the dot.</td></tr>
+      <tr><td class="g"><s>ab</s></td><td><b>Dropped.</b> A line through the words.</td></tr>
+      <tr><td class="g">›</td><td><b>Moved.</b> Say where: › Sat, › Later</td></tr>
+      <tr><td class="g">–</td><td><b>Note.</b> A fact to keep.</td></tr>
+      <tr><td class="g">○</td><td><b>Event.</b> Optional.</td></tr>
+    </table>
+    <div class="mini" style="margin-top:2.4mm">
+      <div class="ln x"><b>×</b>Post parcel</div>
+      <div class="ln"><b><span class="dot">•</span></b><s class="x">Card for Pat’s party</s></div>
+      <div class="ln"><b>›</b>Renew rego › Later</div>
+      <div class="ln"><b>–</b>Quote was $180</div>
+    </div>
+    <div class="num"><span>Next Page</span><span>3</span></div>
+  </div>
+
+  <div class="pg c3 r0">
+    <h2>The one rule</h2>
+    <p>When something new turns up, lift the page and write it on tomorrow’s. Today keeps a line under its list, so you can finish it.</p>
+    <div class="pair">
+      <div class="mini">
+        <div class="d">Fri <small>today</small></div>
+        <div class="ln"><b><span class="dot">•</span></b>Call plumber</div>
+        <div class="ln"><b><span class="dot">•</span></b>Printer ink</div>
+        <div class="closed"></div>
+        <div class="ln"><b><span class="dot">•</span></b>Ring school</div>
+      </div>
+      <div class="mini">
+        <div class="d">Sat <small>next</small></div>
+        <div class="ln"><b><span class="dot">•</span></b>Gate latch</div>
+        <div class="ln"><b><span class="dot">•</span></b>Reply to Jo</div>
+        <div class="ln"><b>○</b>9am Market</div>
+      </div>
+    </div>
+    <h4>Where new things go</h4>
+    <table>
+      <tr><td class="k">Now</td><td>Deal with it. Don’t write it down. Rare.</td></tr>
+      <tr><td class="k">Today</td><td>Under today’s line. Sparingly.</td></tr>
+      <tr><td class="k">Tomorrow</td><td>Next page. The default.</td></tr>
+    </table>
+    <div class="num"><span>Next Page</span><span>2</span></div>
+  </div>
+
+  <!-- bottom row, upright: pages 6 7 8 1 -->
+  <div class="pg c0 r1">
+    <h2>Start small</h2>
+    <p>Move up only when the level below feels automatic.</p>
+    <div class="lvl"><span class="n">0</span><div><b>The rule</b><span>Dated pages, next-page rule, the line, five marks.</span></div></div>
+    <div class="lvl"><span class="n">1</span><div><b>The rhythm</b><span>Focus line, evening sort, last line, moved-three-times rule, weekly review.</span></div></div>
+    <div class="lvl"><span class="n">2</span><div><b>Back lists</b><span>Later, Now, Waiting for, Someday. Each only when its trigger happens.</span></div></div>
+    <div class="lvl"><span class="n">3</span><div><b>Extras</b><span>Habit grid, spend log, 30-min tally, countdown plan, prompt list.</span></div></div>
+    <div class="note"><p>Drop any extra you haven’t used for two weeks.</p></div>
+    <div class="num"><span>Next Page</span><span>6</span></div>
+  </div>
+
+  <div class="pg c1 r1">
+    <h2>Lists at the back</h2>
+    <p>Turn the notebook over and start from the back. Add a list the first time you notice its trigger.</p>
+    <table>
+      <tr><td class="k">Later</td><td>A date slipped. Anything due past this week, by month. (Or use your phone calendar. One place only.)</td></tr>
+      <tr><td class="k">Now</td><td>A goal never shows up on a day page. Five at most, each with its next step.</td></tr>
+      <tr><td class="k">Waiting</td><td>You forgot someone owed you. Who, what, when you asked.</td></tr>
+      <tr><td class="k">Someday</td><td>Tomorrow fills with not-this-week things. Prune monthly.</td></tr>
+    </table>
+    <h4>Extras</h4>
+    <p><b>30-min tally</b> when days feel empty. <b>Countdown plan</b> for a deadline: write it at the bottom, work up to today. <b>Habit grid</b>, three at most.</p>
+    <div class="num"><span>Next Page</span><span>7</span></div>
+  </div>
+
+  <div class="pg c2 r1">
+    <h2>Look back</h2>
+    <h4>Every evening · 10 sec</h4>
+    <p>Energy and one word on the last line.</p>
+    <h4>Every week · 10 min</h4>
+    <ul class="box">
+      <li>Sort every leftover dot</li>
+      <li>Look two weeks ahead</li>
+      <li>Now: five or fewer, each with a next step</li>
+      <li>Chase Waiting for</li>
+      <li>Weeks page: days finished, one good, one that kept moving, one to stop</li>
+      <li>Pick next week’s focus</li>
+    </ul>
+    <h4>Every month · 5 min</h4>
+    <p>Prune Someday. Drop unused extras. Does everything on Now still earn its place?</p>
+    <p style="margin-top:auto; font-size:5.4pt; color:var(--muted); line-height:1.35">Ideas from Bullet Journal (Ryder Carroll), <i>Do It Tomorrow</i> (Mark Forster), D-A-F-T (Andrea Cannavina), <i>Getting Things Done</i> (David Allen) and <i>The Now Habit</i> (Neil Fiore).</p>
+    <div class="num" style="margin-top:1.5mm"><span>Next Page</span><span>8</span></div>
+  </div>
+
+  <div class="pg c3 r1 cover">
+    <div>
+      <div class="title">Next<br>Page</div>
+      <div class="sub">Pocket guide</div>
+    </div>
+    <div class="rule">Anything new goes on tomorrow’s page.</div>
+    <div class="meta">Version 2 · Keep me folded inside the back cover.</div>
+  </div>
+
+  <div class="cut"></div>
+  <span class="cut-tag">✂ CUT</span>
+</div>
+
+<!-- page 2: folding instructions -->
+<div class="sheet inst">
+  <div>
+    <h1>Folding the pocket guide</h1>
+    <p>Print <strong>page 1 only</strong>, single-sided, at <strong>Actual size / 100%</strong> (turn off “Fit to page”). The top row prints upside down on purpose.</p>
+    <h3>Steps</h3>
+    <ol>
+      <li><strong>Crease it into eighths.</strong> Fold in half top to bottom, unfold. Fold in half left to right, unfold. Fold each short edge in to the centre crease, unfold. You now have 8 panels.</li>
+      <li><strong>Cut the slit.</strong> Cut along the dashed line on the centre crease. It runs across the middle two columns only, never to the edge.</li>
+      <li><strong>Fold it long.</strong> Fold the sheet in half along the long centre crease, printed side out, so the cover (“Next Page”) faces you on the bottom-right.</li>
+      <li><strong>Push the ends together.</strong> Hold the two short ends and push them toward each other. The slit opens into a diamond and then a plus shape.</li>
+      <li><strong>Close the book.</strong> Fold the four wings flat around the cover so it reads 1 to 8. Crease the spine hard.</li>
+    </ol>
+    <h3>Size</h3>
+    <p>The finished guide is A7 (74 × 105 mm). It fits the back pocket or cover of most pocket notebooks. For an A7 notebook, trim a couple of millimetres off the outside edges.</p>
+  </div>
+  <div>
+    <svg viewBox="0 0 120 120" role="img" aria-label="Sheet layout: top row pages 5, 4, 3, 2 upside down; bottom row pages 6, 7, 8 and cover 1; slit across the middle two panels">
+      <rect x="1" y="6" width="118" height="83.5" fill="#FBFCFA" stroke="#5A6763" stroke-width="0.5"/>
+      <g stroke="#C3CCC7" stroke-width="0.3" stroke-dasharray="1 1">
+        <line x1="30.5" y1="6" x2="30.5" y2="89.5"/><line x1="60" y1="6" x2="60" y2="89.5"/><line x1="89.5" y1="6" x2="89.5" y2="89.5"/>
+        <line x1="1" y1="47.75" x2="30.5" y2="47.75"/><line x1="89.5" y1="47.75" x2="119" y2="47.75"/>
+      </g>
+      <line x1="30.5" y1="47.75" x2="89.5" y2="47.75" stroke="#B4442E" stroke-width="0.7" stroke-dasharray="2 1.2"/>
+      <g font-weight="700" text-anchor="middle">
+        <text x="15.75" y="27" transform="rotate(180 15.75 26)" style="font-size:7px; fill:#2F6F55">5</text>
+        <text x="45.25" y="27" transform="rotate(180 45.25 26)" style="font-size:7px; fill:#2F6F55">4</text>
+        <text x="74.75" y="27" transform="rotate(180 74.75 26)" style="font-size:7px; fill:#2F6F55">3</text>
+        <text x="104.25" y="27" transform="rotate(180 104.25 26)" style="font-size:7px; fill:#2F6F55">2</text>
+        <text x="15.75" y="71" style="font-size:7px; fill:#2F6F55">6</text>
+        <text x="45.25" y="71" style="font-size:7px; fill:#2F6F55">7</text>
+        <text x="74.75" y="71" style="font-size:7px; fill:#2F6F55">8</text>
+        <text x="104.25" y="71" style="font-size:7px; fill:#1B2A57">1</text>
+      </g>
+      <text x="104.25" y="78" text-anchor="middle">cover</text>
+      <text x="74.75" y="76" text-anchor="middle">back cover</text>
+      <text x="60" y="45.5" text-anchor="middle" style="fill:#B4442E">cut this slit only</text>
+      <text x="60" y="97" text-anchor="middle">Top row prints upside down. Dotted lines are folds.</text>
+      <text x="60" y="102" text-anchor="middle">Step 3: fold the top half behind, so the bottom row faces you.</text>
+    </svg>
+  </div>
+</div>
+
+</body>
+</html>

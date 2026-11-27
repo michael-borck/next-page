@@ -1,0 +1,916 @@
+<title>Next Page Notebook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: one long guide column; hand-drawn notebook pages as figures beside the text. Same look as v1. */
+:root {
+  --bg: #E6EAE7;
+  --surface: #F1F4F2;
+  --text: #17211E;
+  --muted: #4C5A55;
+  --accent: #2F6F55;
+  --accent-ink: #FFFFFF;
+  --rule: #C3CCC7;
+  --paper: #F6F8F3;
+  --dot: #B7C4B8;
+  --ink: #1B2A57;
+  --ink-faint: #8791B0;
+  --hl: #F4DC6B;
+  --hl-ink: #1B2A57;
+  --ring: #6B7672;
+  --hole: #8D9893;
+  --shadow: rgba(23, 33, 30, 0.22);
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151B19;
+    --surface: #1D2523;
+    --text: #E3EAE6;
+    --muted: #9DAAA4;
+    --accent: #6FBF9B;
+    --accent-ink: #0F1A15;
+    --rule: #34403B;
+    --shadow: rgba(0, 0, 0, 0.55);
+    --ring: #A9B3AE;
+    --hole: #0E1311;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151B19;
+  --surface: #1D2523;
+  --text: #E3EAE6;
+  --muted: #9DAAA4;
+  --accent: #6FBF9B;
+  --accent-ink: #0F1A15;
+  --rule: #34403B;
+  --shadow: rgba(0, 0, 0, 0.55);
+  --ring: #A9B3AE;
+  --hole: #0E1311;
+  color-scheme: dark;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.wrap {
+  max-width: 1040px; margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); }
+h1, h2, h3 { line-height: 1.15; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); font-weight: 800; letter-spacing: -0.035em; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.1rem); font-weight: 800; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0 0 1em; max-width: 62ch; }
+ul, ol { padding-left: 1.3em; max-width: 62ch; margin: 0 0 1em; }
+li { margin-bottom: 0.4em; }
+strong { font-weight: 700; }
+.hand { font-family: "Kalam", "Segoe Print", "Bradley Hand", cursive; font-weight: 700; color: var(--accent); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: center; padding-block: 64px 40px; }
+.hero .tag { font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 700; margin-top: 10px; }
+.hero p.lede { font-size: 1.15rem; color: var(--muted); margin-top: 18px; }
+.toc { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 28px 0 0; padding: 0; list-style: none; font-size: 0.95rem; }
+.toc li { margin: 0; }
+
+/* sections */
+section.part { padding-block: 56px; border-top: 1px solid var(--rule); }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; align-items: start; margin-top: 28px; }
+.split.wide { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.split > * { min-width: 0; }
+.figs { display: flex; flex-direction: column; gap: 28px; align-items: center; }
+.figs.row { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
+figure { margin: 0; max-width: 100%; }
+figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 10px; text-align: center; max-width: 300px; line-height: 1.4; }
+
+/* notebook page */
+.page {
+  width: 300px; max-width: 100%;
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.3px);
+  background-size: 24px 24px;
+  background-position: 6px 4px;
+  border-radius: 3px 3px 6px 6px;
+  box-shadow: 0 1px 0 var(--shadow), 0 10px 24px -12px var(--shadow);
+  color: var(--ink);
+  font-family: "Kalam", "Segoe Print", "Bradley Hand", cursive;
+  font-size: 17px;
+  position: relative;
+  padding-bottom: 14px;
+}
+.coil {
+  height: 24px;
+  background:
+    radial-gradient(ellipse 5px 6px at 11px 15px, var(--hole) 97%, transparent) 0 0 / 22px 24px repeat-x,
+    radial-gradient(ellipse 2.4px 9px at 11px 9px, var(--ring) 96%, transparent) 0 0 / 22px 24px repeat-x;
+}
+.page .body { padding: 6px 16px 0; }
+.page.tall { min-height: 360px; }
+.page.under { opacity: 0.92; }
+.ln { display: grid; grid-template-columns: 16px 22px minmax(0, 1fr); height: 24px; line-height: 24px; white-space: nowrap; }
+.ln .st { color: var(--ink); text-align: center; font-weight: 700; }
+.ln .sy { text-align: center; font-weight: 700; }
+.ln .tx { overflow: hidden; text-overflow: ellipsis; }
+.ln.done .tx, .ln.done .sy { color: var(--ink-faint); }
+.ln.struck .tx { color: var(--ink-faint); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--ink); }
+.ln.struck .sy { color: var(--ink-faint); }
+.ln.indent .tx { padding-left: 14px; }
+.ln.head .tx { font-weight: 700; }
+.ln.gap { height: 12px; }
+.close-line { height: 0; border-top: 2.5px solid var(--ink); margin: 5px 0 6px; position: relative; transform: rotate(-0.6deg); }
+.close-line::after { content: "closed"; position: absolute; right: 0; top: -10px; font-size: 0.7rem; background: var(--paper); padding: 0 5px; color: var(--ink-faint); }
+.reflect { margin-top: 10px; border-top: 1.5px dashed var(--ink-faint); padding-top: 4px; height: 30px; line-height: 24px; padding-left: 38px; color: var(--ink); }
+.title { font-weight: 700; font-size: 1.12rem; height: 28px; line-height: 28px; margin-bottom: 4px; border-bottom: 2px solid var(--ink); padding-left: 2px; display: flex; justify-content: space-between; }
+.title small { font-weight: 400; font-size: 0.8rem; color: var(--ink-faint); align-self: center; }
+.hl { background: linear-gradient(transparent 12%, var(--hl) 12% 88%, transparent 88%); padding: 0 3px; color: var(--hl-ink); }
+.boxed { border: 2px solid var(--ink); border-radius: 4px; padding: 2px 6px; margin: 4px 0; }
+.free { line-height: 24px; }
+.free p { margin: 0; max-width: none; }
+
+.cover { min-height: 330px; background-image: none; display: flex; flex-direction: column; }
+.cover .body { padding: 18px 22px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.cover .big { font-size: 1.9rem; font-weight: 700; line-height: 1.1; }
+.cover .sm { font-size: 0.95rem; color: var(--ink-faint); }
+.cover .label { border: 2px solid var(--ink); padding: 8px 10px; border-radius: 4px; font-size: 1rem; transform: rotate(-1.5deg); }
+
+/* key tables */
+table.key { border-collapse: collapse; width: 100%; max-width: 640px; margin: 20px 0; background: var(--surface); border-radius: 8px; overflow: hidden; }
+table.key th, table.key td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); font-size: 0.95rem; vertical-align: baseline; }
+table.key th { font-weight: 700; }
+table.key tr:last-child td { border-bottom: none; }
+table.key td.sym { font-family: "Kalam", "Segoe Print", cursive; font-size: 1.5rem; width: 72px; text-align: center; color: var(--accent); font-weight: 700; white-space: nowrap; }
+table.key td.sym s { text-decoration-thickness: 2px; }
+table.key td.verb { font-weight: 700; color: var(--accent); width: 90px; }
+.scroll { overflow-x: auto; max-width: 100%; }
+
+/* stepper */
+.stepper { margin-top: 28px; background: var(--surface); border-radius: 12px; padding: 24px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.tabs button {
+  font: inherit; font-size: 0.95rem; font-weight: 500;
+  padding: 9px 16px; border-radius: 999px; cursor: pointer;
+  border: 1.5px solid var(--rule); background: transparent; color: var(--text);
+}
+.tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tabs button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.stage { display: grid; gap: 22px; }
+.stage .say { min-width: 0; }
+.stage .say h3 { margin-bottom: 8px; }
+.stage .say p { margin-bottom: 0.7em; }
+.stage .pages { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+.stage .pg { display: flex; flex-direction: column; gap: 8px; }
+.stage .pg .cap { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+.callout { background: var(--bg); border-left: 4px solid var(--accent); padding: 12px 16px; border-radius: 0 6px 6px 0; max-width: 62ch; margin: 20px 0; font-size: 0.97rem; }
+.stepper + .callout { margin-top: 24px; }
+.part > .callout { background: var(--surface); }
+.callout p { margin: 0; }
+
+/* levels */
+.ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 28px; }
+.rung { background: var(--surface); border-radius: 10px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.rung .lvl { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.rung h3 { font-size: 1.15rem; }
+.rung ul { padding-left: 1.1em; margin: 0; font-size: 0.95rem; }
+.rung .when { margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 0.88rem; color: var(--muted); }
+
+.checks { list-style: none; padding: 0; }
+.checks li { display: flex; gap: 12px; align-items: baseline; }
+.checks li::before { content: ""; flex: none; width: 15px; height: 15px; border: 2px solid var(--accent); border-radius: 3px; transform: translateY(2px); }
+
+.three { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 24px; }
+.three > div { min-width: 0; }
+.three h3 { margin-bottom: 6px; }
+.three .when { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+
+.cheat { background: var(--surface); border-radius: 12px; padding: 28px; margin-top: 28px; }
+.cheat .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+.cheat h3 { margin-bottom: 8px; }
+.cheat ul { padding-left: 1.1em; margin: 0; }
+.cheat .glyph { font-family: "Kalam", "Segoe Print", cursive; font-weight: 700; color: var(--accent); font-size: 1.15em; display: inline-block; min-width: 1.1em; }
+.card-wrap { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 40px; align-items: start; margin-top: 28px; }
+.card-wrap .cheat { margin-top: 0; }
+
+footer { padding-block: 40px 56px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--rule); }
+footer table.key { font-size: 0.9rem; max-width: 760px; }
+
+@media (max-width: 860px) {
+  .hero, .split, .split.wide, .card-wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .hero { padding-top: 40px; }
+  .card-wrap > figure { justify-self: center; }
+  .stage .pages { justify-content: center; }
+  .stepper { padding: 18px; }
+}
+@media print {
+  :root { --bg: #fff; --surface: #fff; }
+  body { font-size: 12pt; }
+  .tabs { display: none; }
+  section.part { break-inside: avoid; border: none; padding-block: 16px; }
+  .page, .cheat, figure, .rung { break-inside: avoid; box-shadow: none; }
+  .page { border: 1px solid #999; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div>
+    <h1>Next Page</h1>
+    <p class="tag">A pocket notebook system with one rule: anything new goes on tomorrow’s page.</p>
+    <p class="lede">Today’s list stays closed, so you can finish it. Five marks, a two-minute evening sort, and extra lists you add only when you notice you need them. It works in a $1 top-spiral notebook or one you staple together yourself.</p>
+    <ul class="toc">
+      <li><a href="#rule">The rule</a></li>
+      <li><a href="#marks">Five marks</a></li>
+      <li><a href="#day">A day on paper</a></li>
+      <li><a href="#levels">Start small</a></li>
+      <li><a href="#back">Lists at the back</a></li>
+      <li><a href="#review">Look back</a></li>
+      <li><a href="#behind">Falling behind</a></li>
+      <li><a href="#setup">Set up</a></li>
+      <li><a href="#spiral">The spiral</a></li>
+      <li><a href="#card">Inside-cover card</a></li>
+    </ul>
+  </div>
+  <figure>
+    <div class="page cover" aria-label="Notebook cover labelled Next Page, notebook 1">
+      <div class="coil"></div>
+      <div class="body">
+        <div class="big">Next Page<br>no. 1</div>
+        <div>
+          <div class="label">If found, please call<br>0400 000 000</div>
+          <p class="sm" style="margin:12px 0 0">Started 27 Nov 2026</p>
+        </div>
+      </div>
+    </div>
+  </figure>
+</header>
+
+<section class="part" id="rule">
+  <h2>The rule: new things go on the next page</h2>
+  <div class="split">
+    <div>
+      <p>On a flip notebook, tomorrow is one lift away. So when something new turns up today, you lift the page and write it on tomorrow’s. Today’s list stays as you planned it, with a line drawn underneath. Mark Forster calls this a <strong>closed list</strong>.</p>
+      <p>Four things follow from that one habit.</p>
+      <ul>
+        <li><strong>You can finish today.</strong> The list doesn’t grow while you work, so getting to the end of it means something.</li>
+        <li><strong>Interruptions wait a day.</strong> Most things that feel urgent are fine tomorrow. Writing them down tomorrow makes you check.</li>
+        <li><strong>Planning is already done.</strong> By evening, tomorrow’s list is mostly written. You never rewrite a list from scratch.</li>
+        <li><strong>You find out early when you’ve taken on too much.</strong> If you can’t finish the list three days running, the problem is how much you’ve agreed to, and you know it within a week.</li>
+      </ul>
+      <p>Only three kinds of urgency exist. Decide which one each new thing is.</p>
+      <div class="scroll">
+        <table class="key">
+          <thead><tr><th scope="col">Urgency</th><th scope="col">What you do</th></tr></thead>
+          <tbody>
+            <tr><td class="verb">Now</td><td>Drop everything and deal with it. Don’t write it down. This is rare.</td></tr>
+            <tr><td class="verb">Today</td><td>Write it on today’s page, <em>under</em> the line. Use this sparingly.</td></tr>
+            <tr><td class="verb">Tomorrow</td><td>Lift the page and write it on tomorrow’s. This is the default.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="figs">
+      <figure>
+        <div class="page" aria-label="Today's page with a line under the planned list and one same-day item below it">
+          <div class="coil"></div>
+          <div class="body">
+            <div class="title">Fri 27 Nov <small>today</small></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx"><span class="hl">Focus</span> garage, 30 min</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Call plumber</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Buy printer ink</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">○</span><span class="tx">2pm Car service</span></div>
+            <div class="close-line"></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Ring school back</span></div>
+          </div>
+        </div>
+        <figcaption>Today: the plan above the line, one real same-day item below it.</figcaption>
+      </figure>
+      <figure>
+        <div class="page under" aria-label="Tomorrow's page collecting new items">
+          <div class="coil"></div>
+          <div class="body">
+            <div class="title">Sat 28 Nov <small>one lift away</small></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Fix gate latch</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Reply to Jo’s email</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">○</span><span class="tx">9am Market</span></div>
+          </div>
+        </div>
+        <figcaption>Tomorrow: everything new that turned up today.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="marks">
+  <h2>Five marks</h2>
+  <p>Put a mark at the start of every line. An open dot is the only thing that still needs you.</p>
+  <div class="split wide">
+    <div class="scroll">
+      <table class="key">
+        <thead><tr><th scope="col">Mark</th><th scope="col">Meaning</th><th scope="col">How</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">•</td><td>Task</td><td>A dot before the words</td></tr>
+          <tr><td class="sym">×</td><td>Done</td><td>Draw the × over the dot. The words stay readable.</td></tr>
+          <tr><td class="sym"><s>&nbsp;abc&nbsp;</s></td><td>Dropped</td><td>A line through the words. Dropping is a decision, and it counts.</td></tr>
+          <tr><td class="sym">›</td><td>Moved</td><td>Over the dot, then write where: “› Sat”, “› Later”, “› Someday”</td></tr>
+          <tr><td class="sym">–</td><td>Note</td><td>A fact worth keeping: “– quote was $180”</td></tr>
+        </tbody>
+      </table>
+      <p>Optional sixth mark: <span class="hand">○</span> for an appointment or event. Use it if you keep times in the notebook. Skip it if your phone calendar does that job.</p>
+      <p>That’s all. Ideas are just notes: copy the good ones to a back list during the evening sort.</p>
+    </div>
+    <div class="figs">
+      <figure>
+        <div class="page" aria-label="Example page showing every mark">
+          <div class="coil"></div>
+          <div class="body">
+            <div class="title">Marks <small>example</small></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Book dentist</span></div>
+            <div class="ln done"><span class="st"></span><span class="sy">×</span><span class="tx">Post parcel</span></div>
+            <div class="ln struck"><span class="st"></span><span class="sy">•</span><span class="tx">Card for Pat’s party</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">›</span><span class="tx">Renew rego › Later</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">–</span><span class="tx">Quote was $180</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">○</span><span class="tx">2pm Car service</span></div>
+          </div>
+        </div>
+        <figcaption>Done, dropped and moved each look different, so the week’s review is a quick scan for plain dots.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="day">
+  <h2>One day on paper</h2>
+  <p>Follow Friday from the night before to Saturday morning. Watch where new things go.</p>
+
+  <div class="stepper">
+    <div class="tabs" role="tablist" aria-label="Stage of the day">
+      <button role="tab" id="tab0" aria-selected="true" aria-controls="stage" data-i="0">Night before</button>
+      <button role="tab" id="tab1" aria-selected="false" aria-controls="stage" data-i="1" tabindex="-1">During the day</button>
+      <button role="tab" id="tab2" aria-selected="false" aria-controls="stage" data-i="2" tabindex="-1">Evening sort</button>
+      <button role="tab" id="tab3" aria-selected="false" aria-controls="stage" data-i="3" tabindex="-1">Next morning</button>
+    </div>
+    <div class="stage" id="stage" role="tabpanel" aria-labelledby="tab0" aria-live="polite">
+      <div class="say" id="stageSay"></div>
+      <div class="pages" id="stagePages"></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>Moved three times? Change it.</strong> Break it into a smaller first step, give it a date on the Later page, or put a line through it. A task you keep moving is a decision you haven’t made yet.</p>
+  </div>
+
+  <h3 style="margin-top:32px">The evening sort: Defer, Act, File, Toss</h3>
+  <p>Read down today’s page. Every open dot gets one of four verbs. It takes two minutes.</p>
+  <div class="scroll">
+    <table class="key">
+      <thead><tr><th scope="col">Verb</th><th scope="col">When</th><th scope="col">Mark</th></tr></thead>
+      <tbody>
+        <tr><td class="verb">Act</td><td>It takes two minutes. Do it now.</td><td class="sym">×</td></tr>
+        <tr><td class="verb">Defer</td><td>Still matters soon. Move it to tomorrow’s page, or to Later with a date.</td><td class="sym">›</td></tr>
+        <tr><td class="verb">File</td><td>Matters, but not this week. Move it to a back list: Now, Someday or Waiting for.</td><td class="sym">›</td></tr>
+        <tr><td class="verb">Toss</td><td>No longer matters.</td><td class="sym"><s>&nbsp;abc&nbsp;</s></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Then write one line at the bottom of the page: your energy out of 10 and one word for the day. It takes ten seconds and, after a month, shows you what good days have in common.</p>
+</section>
+
+<section class="part" id="levels">
+  <h2>Start small, add only what you need</h2>
+  <p>No system suits everyone from day one. This one starts with almost nothing and grows when something specific goes wrong. Move up a level only when the one below feels automatic.</p>
+  <div class="ladder">
+    <div class="rung">
+      <span class="lvl">Level 0 · week 1</span>
+      <h3>The rule</h3>
+      <ul>
+        <li>A dated page each day</li>
+        <li>New things go on the next page</li>
+        <li>Draw the line, finish above it</li>
+        <li>Five marks</li>
+      </ul>
+      <p class="when">Move up when you reach for the notebook without thinking.</p>
+    </div>
+    <div class="rung">
+      <span class="lvl">Level 1 · week 2</span>
+      <h3>The rhythm</h3>
+      <ul>
+        <li>A focus line at the top, done first</li>
+        <li>Evening sort: Defer, Act, File, Toss</li>
+        <li>Energy and one word at the bottom</li>
+        <li>Moved three times? Change it</li>
+        <li>Ten-minute weekly review</li>
+      </ul>
+      <p class="when">Move up when things start slipping through the gaps.</p>
+    </div>
+    <div class="rung">
+      <span class="lvl">Level 2 · as needed</span>
+      <h3>Lists at the back</h3>
+      <ul>
+        <li>Later: anything with a date</li>
+        <li>Now: 3 to 5 active projects</li>
+        <li>Waiting for</li>
+        <li>Someday</li>
+      </ul>
+      <p class="when">Add each one when its trigger happens (see below).</p>
+    </div>
+    <div class="rung">
+      <span class="lvl">Level 3 · optional</span>
+      <h3>Extras</h3>
+      <ul>
+        <li>Habit grid</li>
+        <li>Spend log</li>
+        <li>30-minute tally</li>
+        <li>Countdown plan for a deadline</li>
+        <li>Prompt list for the weekly review</li>
+      </ul>
+      <p class="when">Drop any extra you haven’t used for two weeks.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:36px">Add it when this happens</h3>
+  <div class="scroll">
+    <table class="key" style="max-width:780px">
+      <thead><tr><th scope="col">Add</th><th scope="col">The first time you notice…</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Later</strong></td><td>a date slipped, or you wrote down something you can’t do before next month</td></tr>
+        <tr><td><strong>Now</strong></td><td>a goal you care about never shows up on a day page</td></tr>
+        <tr><td><strong>Waiting for</strong></td><td>you forgot that someone owed you something</td></tr>
+        <tr><td><strong>Someday</strong></td><td>tomorrow’s page fills with things that aren’t for this week</td></tr>
+        <tr><td><strong>30-minute tally</strong></td><td>you end the day feeling you did nothing, or you keep avoiding one big task</td></tr>
+        <tr><td><strong>Countdown plan</strong></td><td>a project has a deadline and you keep putting off starting it</td></tr>
+        <tr><td><strong>Habit grid</strong></td><td>you’re trying to build one particular habit (three at most)</td></tr>
+        <tr><td><strong>Prompt list</strong></td><td>the weekly review feels like you’re missing things</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="part" id="back">
+  <h2>Lists at the back</h2>
+  <p>Turn the notebook over and start from the back. These lists outlast any single day. Most people need two of them. Few need all four.</p>
+  <div class="figs row" style="margin-top:32px; gap:32px">
+    <figure>
+      <div class="page tall" aria-label="Later list grouped by month">
+        <div class="coil"></div>
+        <div class="body">
+          <div class="title">Later <small>check weekly</small></div>
+          <div class="ln head"><span class="st"></span><span class="sy"></span><span class="tx">December</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">3rd &nbsp;Renew rego</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">○</span><span class="tx">12th Work party</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">20th Post cards</span></div>
+          <div class="ln gap"></div>
+          <div class="ln head"><span class="st"></span><span class="sy"></span><span class="tx">January</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">○</span><span class="tx">18th Dentist</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Car service due</span></div>
+        </div>
+      </div>
+      <figcaption><strong>Later.</strong> Anything with a date past this week. If you use a phone calendar instead, use it for everything with a date. Keep dates in one place only.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="page tall" aria-label="Now list of active projects with next steps">
+        <div class="coil"></div>
+        <div class="body">
+          <div class="title">Now <small>5 at most</small></div>
+          <div class="ln head"><span class="st"></span><span class="sy">•</span><span class="tx">Garage</span></div>
+          <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">› bin the old paint</span></div>
+          <div class="ln head"><span class="st"></span><span class="sy">•</span><span class="tx">Tax return</span></div>
+          <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">› find income statement</span></div>
+          <div class="ln head"><span class="st"></span><span class="sy">•</span><span class="tx">Kitchen</span></div>
+          <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">› ring second builder</span></div>
+          <div class="ln head"><span class="st"></span><span class="sy">•</span><span class="tx">Fitness</span></div>
+          <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">› book Tuesday class</span></div>
+        </div>
+      </div>
+      <figcaption><strong>Now.</strong> What you have actually committed to, each with its next step. The current focus usually comes from here.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="page tall" aria-label="Waiting for list">
+        <div class="coil"></div>
+        <div class="body">
+          <div class="title">Waiting for <small>chase weekly</small></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Sam: bike pump (14 Nov)</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Council: permit (20 Nov)</span></div>
+          <div class="ln done"><span class="st"></span><span class="sy">×</span><span class="tx">Jo: photos (25 Nov)</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Shop: cabinet part (22 Nov)</span></div>
+        </div>
+      </div>
+      <figcaption><strong>Waiting for.</strong> Who owes you what, and when you asked.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="page tall" aria-label="Someday list">
+        <div class="coil"></div>
+        <div class="body">
+          <div class="title">Someday <small>prune monthly</small></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Learn to sharpen knives</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Day trip to the coast</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Solar panel quotes</span></div>
+          <div class="ln struck"><span class="st"></span><span class="sy">•</span><span class="tx">Catalogue the DVDs</span></div>
+          <div class="ln"><span class="st"></span><span class="sy">–</span><span class="tx">Pallet = compost bin</span></div>
+        </div>
+      </div>
+      <figcaption><strong>Someday.</strong> Ideas and maybes. Cut it hard once a month, or it turns into a list of guilt.</figcaption>
+    </figure>
+  </div>
+  <p style="margin-top:32px">Extras go here too, one page each, only when you need them: a habit grid (one row per habit, one box per day), a spend log, a list of books and films, or a <strong>countdown plan</strong>. For the countdown plan, write the deadline at the bottom of the page and work upward to today, one step per line. Each step gets its own small deadline, with a rest built in.</p>
+</section>
+
+<section class="part" id="review">
+  <h2>Look back, in three sizes</h2>
+  <p>Reflection only sticks if it’s small. Each of these fits in the time you have.</p>
+  <div class="three">
+    <div>
+      <p class="when">Every evening · 10 seconds</p>
+      <h3>One line</h3>
+      <p>Energy out of 10 and one word, at the bottom of the day page. With the 30-minute tally extra, add a stroke for each half hour of real focus.</p>
+    </div>
+    <div>
+      <p class="when">Every week · 10 minutes</p>
+      <h3>The review</h3>
+      <p>The checklist below, finishing with three short answers on the Weeks page at the back.</p>
+    </div>
+    <div>
+      <p class="when">Every month · 5 minutes</p>
+      <h3>Prune</h3>
+      <p>Cut the Someday list. Drop any extra you’ve stopped using. Ask whether everything on Now still deserves a place.</p>
+    </div>
+  </div>
+
+  <div class="split">
+    <div>
+      <h3 style="margin-top:12px">Weekly review</h3>
+      <p>Pick a regular time, such as Sunday evening.</p>
+      <ul class="checks">
+        <li>Flip through the week. Give every plain dot a verb: Act, Defer, File or Toss.</li>
+        <li>Look two weeks ahead on the Later page or your calendar. Copy anything due onto the right day page.</li>
+        <li>Check Now: five projects or fewer, each with a next step.</li>
+        <li>Chase anything overdue on Waiting for.</li>
+        <li>On the Weeks page, write how many days you finished your list, one thing that worked, one thing that kept getting moved, and one thing to stop.</li>
+        <li>Choose next week’s focus.</li>
+      </ul>
+      <div class="callout"><p><strong>Count finished days.</strong> Finishing the list four days out of five is a good week. Reward it. The score tells you whether your lists are the right size.</p></div>
+    </div>
+    <div class="figs">
+      <figure>
+        <div class="page tall" aria-label="Weeks page with one short reflection per week">
+          <div class="coil"></div>
+          <div class="body">
+            <div class="title">Weeks <small>back page</small></div>
+            <div class="ln head"><span class="st"></span><span class="sy"></span><span class="tx">16 Nov · 3 of 5</span></div>
+            <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">good: early starts</span></div>
+            <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">moved: tax return</span></div>
+            <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">stop: email after 9</span></div>
+            <div class="ln gap"></div>
+            <div class="ln head"><span class="st"></span><span class="sy"></span><span class="tx">23 Nov · <span class="hl">4 of 5</span></span></div>
+            <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">good: garage focus</span></div>
+            <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">moved: kitchen quote</span></div>
+            <div class="ln indent"><span class="st"></span><span class="sy"></span><span class="tx">stop: saying yes on calls</span></div>
+          </div>
+        </div>
+        <figcaption>Four lines a week. After a few months this page shows your patterns better than any app.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="behind">
+  <h2>When you fall behind</h2>
+  <p>Every paper system gets dropped for a few days at some point. What counts is how cheap it is to come back.</p>
+  <div class="three">
+    <div>
+      <h3>Missed some days</h3>
+      <p>Don’t fill in the gap. Date today’s page, copy over only what still matters, and carry on. The old pages can wait for the weekly review.</p>
+    </div>
+    <div>
+      <h3>Can’t finish the list</h3>
+      <p>Three unfinished days in a row means something needs fixing. Either you’re doing a lot that isn’t on the list, or you’ve agreed to too much, or you haven’t left time for ordinary life. Cut commitments before you cut sleep.</p>
+    </div>
+    <div>
+      <h3>Stuck on one task</h3>
+      <p>Write the smallest start: “just find the folder”. Commit to 30 minutes and allow yourself to stop after that. Before a break, start the next thing, so coming back is easy.</p>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="setup">
+  <h2>Set up in two minutes</h2>
+  <div class="split">
+    <div>
+      <ol>
+        <li><strong>Label the cover</strong> with a phone number or email and the start date. Pocket notebooks get lost.</li>
+        <li><strong>Copy the card</strong> from the end of this guide onto the inside cover.</li>
+        <li><strong>Write day pages on the front of each sheet only.</strong> Tomorrow then stays one lift away, and any page can be torn out without losing something on its back.</li>
+        <li><strong>Skip the index.</strong> The date is the address. Anything worth finding again belongs in a list at the back.</li>
+        <li><strong>Decide where dates live:</strong> your phone calendar or the Later page. Pick one.</li>
+        <li><strong>Leave the back empty</strong> until a trigger tells you to start a list.</li>
+      </ol>
+      <p>The notebook is full when the day pages reach the lists at the back. Copy anything still open onto the first page of the next notebook, carry over the back lists you still use, and write the end date on the cover.</p>
+    </div>
+    <div class="figs">
+      <figure>
+        <div class="page" aria-label="First day page of a new notebook">
+          <div class="coil"></div>
+          <div class="body">
+            <div class="title">Fri 27 Nov <small>page one</small></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx"><span class="hl">Focus</span> garage, 30 min</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Call plumber</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Buy printer ink</span></div>
+            <div class="close-line"></div>
+          </div>
+        </div>
+        <figcaption>Day one needs nothing more than this.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="spiral">
+  <h2>Using the spiral</h2>
+  <p>The wire binding is what makes a flip notebook different from a bound book. Use it on purpose.</p>
+  <div class="split">
+    <div>
+      <h3>Hand someone a note</h3>
+      <p>Write it on the next blank sheet, tear it out and hand it over. On today’s page, write “› note to Jo” so you know where it went.</p>
+      <h3>Keep private things private</h3>
+      <p>Use a sheet of its own and tear it out when you’re done. Shred it if it matters. Keep passwords somewhere else altogether.</p>
+      <h3>Keep a clean working page</h3>
+      <p>Flip finished days behind the cover. Today is always on top, and tomorrow is underneath.</p>
+      <h3>Tear without ripping</h3>
+      <p>Crease the page flat against the wire first, then pull. Cheap paper tears unevenly if you pull straight out.</p>
+      <div class="callout"><p><strong>Keep what matters.</strong> If a torn-out page holds something worth keeping, photograph it before you throw it away.</p></div>
+    </div>
+    <div class="figs">
+      <figure>
+        <div class="page tall" aria-label="A shopping list on its own sheet, ready to tear out">
+          <div class="coil"></div>
+          <div class="body">
+            <div class="title">For Jo <small>tear out</small></div>
+            <div class="boxed">
+              <div class="ln" style="grid-template-columns:22px 22px minmax(0,1fr)"><span class="st"></span><span class="sy">•</span><span class="tx">Eggs</span></div>
+              <div class="ln" style="grid-template-columns:22px 22px minmax(0,1fr)"><span class="st"></span><span class="sy">•</span><span class="tx">Bread</span></div>
+              <div class="ln" style="grid-template-columns:22px 22px minmax(0,1fr)"><span class="st"></span><span class="sy">•</span><span class="tx">Tomatoes</span></div>
+              <div class="ln" style="grid-template-columns:22px 22px minmax(0,1fr)"><span class="st"></span><span class="sy">•</span><span class="tx">Printer ink</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption>A list on a sheet of its own. Its back is blank, so tearing it out loses nothing.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h3 style="margin-top:36px">No spiral? Make a stapled one</h3>
+  <p>Cut 6 sheets of A4 in half to get 12 pieces of A5. Fold each in half, nest them inside a folded card cover, and staple twice through the fold. That gives 48 pages of about 105 × 148 mm, the size of a Field Notes book. Round the corners so it slides into a pocket. In a stapled book, tomorrow is simply the next page. Keep tear-out notes on a loose slip tucked in the back.</p>
+</section>
+
+<section class="part" id="card">
+  <h2>Inside-cover card</h2>
+  <p>Copy the left-hand card into the front cover. It’s the whole system.</p>
+  <div class="card-wrap">
+    <figure>
+      <div class="page" aria-label="Handwritten summary card for the inside cover">
+        <div class="coil"></div>
+        <div class="body">
+          <div class="title">Next Page <small>inside cover</small></div>
+          <div class="free">
+            <p><span class="hl">New → next page.</span></p>
+            <p>Draw the line. Finish above it.</p>
+            <p>• task &nbsp;× done &nbsp;› moved</p>
+            <p>– note &nbsp;<s>line</s> dropped</p>
+            <p>Focus first, 30 min.</p>
+            <p>Night: Act · Defer · File · Toss</p>
+            <p>Last line: energy + one word</p>
+            <p>Moved 3×? Shrink, date or drop.</p>
+            <p>Sunday: 10-minute review.</p>
+          </div>
+        </div>
+      </div>
+      <figcaption>Nine lines. Everything else is optional.</figcaption>
+    </figure>
+    <div class="cheat">
+      <div class="cols">
+        <div>
+          <h3>Every day</h3>
+          <ul>
+            <li>Date the page. Focus line first.</li>
+            <li>Rule a line under the plan.</li>
+            <li>New things go on the next page.</li>
+            <li>Same-day only goes under the line.</li>
+            <li>Evening: sort every dot, write one line.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Every week</h3>
+          <ul>
+            <li>Sort leftover dots.</li>
+            <li>Look two weeks ahead.</li>
+            <li>Now: five or fewer, each with a next step.</li>
+            <li>Chase Waiting for.</li>
+            <li>Weeks page: score, good, moved, stop.</li>
+            <li>Pick next week’s focus.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Every month</h3>
+          <ul>
+            <li>Prune Someday.</li>
+            <li>Drop unused extras.</li>
+            <li>Add a list only when its trigger happens.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Marks</h3>
+          <ul>
+            <li><span class="glyph">•</span> task</li>
+            <li><span class="glyph">×</span> done</li>
+            <li><span class="glyph">›</span> moved</li>
+            <li><span class="glyph">–</span> note</li>
+            <li><span class="glyph"><s>a</s></span> dropped</li>
+            <li><span class="glyph">○</span> event (optional)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h3 style="color:var(--text); margin-bottom:8px">Where the ideas come from</h3>
+  <div class="scroll">
+    <table class="key">
+      <tbody>
+        <tr><td><strong>Rapid logging with marks, lists at the back</strong></td><td>Bullet Journal, Ryder Carroll</td></tr>
+        <tr><td><strong>Closed list, tomorrow’s page, the focus line, the three-day check</strong></td><td><em>Do It Tomorrow</em>, Mark Forster</td></tr>
+        <tr><td><strong>The four sort verbs</strong></td><td>D-A-F-T, Andrea Cannavina</td></tr>
+        <tr><td><strong>Waiting for, Someday, the weekly review</strong></td><td><em>Getting Things Done</em>, David Allen</td></tr>
+        <tr><td><strong>30-minute starts, the tally, countdown plans</strong></td><td><em>The Now Habit</em>, Neil Fiore</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:20px">Version 2. Made for a top-spiral pocket notebook, and it works just as well in a stapled one.</p>
+</footer>
+</div>
+
+<script>
+(function () {
+  function L(sym, text, o) { o = o || {}; return { sym: sym, text: text, done: !!o.done, struck: !!o.struck, focus: !!o.focus }; }
+  var CLOSE = { kind: 'close' };
+  function R(text) { return { kind: 'reflect', text: text }; }
+
+  var steps = [
+    {
+      title: 'Tomorrow is already half written',
+      say: [
+        'All through Thursday, anything new went on this page instead of Thursday’s. By evening, Friday’s list is mostly written.',
+        'Add anything else you know about, choose one focus for the first 30 minutes, then rule a line under the list. The list is now closed.'
+      ],
+      pages: [{ cap: 'Friday', title: 'Fri 27 Nov', lines: [
+        L('•', 'garage, 30 min', { focus: true }),
+        L('•', 'Call plumber'),
+        L('•', 'Buy printer ink'),
+        L('•', 'Email Sam re Saturday'),
+        L('○', '2pm Car service'),
+        L('•', 'Renew rego'),
+        L('•', 'Solar panel quotes'),
+        L('•', 'Card for Pat’s party'),
+        CLOSE
+      ]}]
+    },
+    {
+      title: 'New things go on the next page',
+      say: [
+        'Start with the focus, then work down the list in any order. You plan to finish all of it, so the order matters less.',
+        'When something new turns up, lift the page and write it on Saturday’s. The gate latch and Jo’s email can wait a day.',
+        'The school rang, and that call really must be returned today, so it goes under the line. Notes about today, like the plumber’s quote, stay on today’s page.'
+      ],
+      pages: [
+        { cap: 'Friday', title: 'Fri 27 Nov', lines: [
+          L('×', 'garage, 30 min', { focus: true, done: true }),
+          L('×', 'Call plumber', { done: true }),
+          L('•', 'Buy printer ink'),
+          L('×', 'Email Sam re Saturday', { done: true }),
+          L('○', '2pm Car service'),
+          L('•', 'Renew rego'),
+          L('•', 'Solar panel quotes'),
+          L('•', 'Card for Pat’s party'),
+          CLOSE,
+          L('•', 'Ring school back'),
+          L('–', 'Plumber quote $180')
+        ]},
+        { cap: 'Saturday, underneath', title: 'Sat 28 Nov', lines: [
+          L('•', 'Fix gate latch'),
+          L('•', 'Reply to Jo’s email'),
+          L('○', '9am Market')
+        ]}
+      ]
+    },
+    {
+      title: 'Two minutes: Act, Defer, File, Toss',
+      say: [
+        'Read down Friday and settle every open dot.',
+        'Act: the school call takes two minutes, so do it and cross it off. Defer: printer ink moves to Saturday. Renew rego has now moved three times, so it gets a date on the Later page. File: solar quotes go to Someday. Toss: the party is off, so the card gets a line through it.',
+        'Last, one line at the bottom: energy 6, and the word “busy”.'
+      ],
+      pages: [
+        { cap: 'Friday', title: 'Fri 27 Nov', lines: [
+          L('×', 'garage, 30 min', { focus: true, done: true }),
+          L('×', 'Call plumber', { done: true }),
+          L('›', 'Buy printer ink › Sat'),
+          L('×', 'Email Sam re Saturday', { done: true }),
+          L('○', '2pm Car service'),
+          L('›', 'Renew rego › Later 3 Dec'),
+          L('›', 'Solar quotes › Someday'),
+          L('•', 'Card for Pat’s party', { struck: true }),
+          CLOSE,
+          L('×', 'Ring school back', { done: true }),
+          L('–', 'Plumber quote $180'),
+          R('E 6 · busy')
+        ]},
+        { cap: 'Saturday, underneath', title: 'Sat 28 Nov', lines: [
+          L('•', 'Fix gate latch'),
+          L('•', 'Reply to Jo’s email'),
+          L('○', '9am Market'),
+          L('•', 'Buy printer ink')
+        ]}
+      ]
+    },
+    {
+      title: 'Start with a list you can finish',
+      say: [
+        'Flip Friday behind the cover. Saturday already has its tasks, so there is nothing to rewrite.',
+        'The garage is still this week’s focus, so it goes first again. Rule the line and start. Anything new today goes on Sunday’s page.'
+      ],
+      pages: [{ cap: 'Saturday', title: 'Sat 28 Nov', lines: [
+        L('•', 'garage, 30 min', { focus: true }),
+        L('•', 'Fix gate latch'),
+        L('•', 'Reply to Jo’s email'),
+        L('○', '9am Market'),
+        L('•', 'Buy printer ink'),
+        CLOSE
+      ]}]
+    }
+  ];
+
+  var pagesEl = document.getElementById('stagePages');
+  var sayEl = document.getElementById('stageSay');
+  var stage = document.getElementById('stage');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabs [role="tab"]'));
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  function lineHTML(l) {
+    if (l.kind === 'close') return '<div class="close-line"></div>';
+    if (l.kind === 'reflect') return '<div class="reflect">' + esc(l.text) + '</div>';
+    var cls = 'ln' + (l.done ? ' done' : '') + (l.struck ? ' struck' : '');
+    var tx = l.focus ? '<span class="hl">Focus</span> ' + esc(l.text) : esc(l.text);
+    return '<div class="' + cls + '"><span class="st"></span><span class="sy">' + esc(l.sym) + '</span><span class="tx">' + tx + '</span></div>';
+  }
+
+  function pageHTML(p, i) {
+    var h = '<div class="pg"><span class="cap">' + esc(p.cap) + '</span>';
+    h += '<div class="page tall' + (i > 0 ? ' under' : '') + '"><div class="coil"></div><div class="body"><div class="title">' + esc(p.title) + '</div>';
+    p.lines.forEach(function (l) { h += lineHTML(l); });
+    return h + '</div></div></div>';
+  }
+
+  function show(i) {
+    var s = steps[i];
+    pagesEl.innerHTML = s.pages.map(pageHTML).join('');
+    sayEl.innerHTML = '<h3>' + esc(s.title) + '</h3>' + s.say.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
+    tabs.forEach(function (t, j) {
+      t.setAttribute('aria-selected', j === i ? 'true' : 'false');
+      t.tabIndex = j === i ? 0 : -1;
+    });
+    stage.setAttribute('aria-labelledby', 'tab' + i);
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(i); });
+    t.addEventListener('keydown', function (e) {
+      var n = null;
+      if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+      if (e.key === 'ArrowLeft') n = (i + tabs.length - 1) % tabs.length;
+      if (n !== null) { e.preventDefault(); show(n); tabs[n].focus(); }
+    });
+  });
+
+  show(0);
+})();
+</script>
