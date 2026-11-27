@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Next Page card, level 0</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@page { size: A4 landscape; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: "Public Sans", Helvetica, Arial, sans-serif; color: #17211E; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+:root { --ink: #1B2A57; --accent: #2F6F55; --muted: #5A6763; --hl: #F4DC6B; --line: #9AA7A1; }
+
+.sheet { position: relative; width: 297mm; height: 210mm; overflow: hidden; page-break-after: always; }
+.cell { position: absolute; width: 74.25mm; height: 105mm; padding: 7mm 6.5mm 6mm; display: flex; flex-direction: column; }
+.c0 { left: 0; } .c1 { left: 74.25mm; } .c2 { left: 148.5mm; } .c3 { left: 222.75mm; }
+.r0 { top: 0; } .r1 { top: 105mm; }
+
+/* guides */
+.cut-v { position: absolute; left: 148.5mm; top: 0; bottom: 0; border-left: 0.3mm dashed var(--line); }
+.cut-h { position: absolute; top: 105mm; left: 0; right: 0; border-top: 0.3mm dashed var(--line); }
+.fold-v { position: absolute; top: 0; bottom: 0; border-left: 0.25mm dotted #C6CFCB; }
+.f1 { left: 74.25mm; } .f2 { left: 222.75mm; }
+.tag { position: absolute; font-size: 5.5pt; color: var(--line); letter-spacing: 0.08em; text-transform: uppercase; background: #fff; padding: 0 1mm; }
+
+/* front */
+.front { font-family: "Kalam", "Bradley Hand", cursive; color: var(--ink); }
+.front .t { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 0.5mm solid var(--ink); padding-bottom: 1mm; margin-bottom: 2.5mm; }
+.front .t b { font-size: 17pt; line-height: 1; }
+.front .t small { font-size: 7pt; color: #8791B0; }
+.front p { margin: 0; font-size: 10.5pt; line-height: 1.5; white-space: nowrap; }
+.front .hl { background: linear-gradient(transparent 14%, var(--hl) 14% 86%, transparent 86%); padding: 0 1mm; font-weight: 700; }
+.front s { text-decoration-thickness: 0.35mm; }
+.front .foot { margin-top: auto; font-family: "Public Sans", sans-serif; font-size: 5.5pt; color: var(--muted); letter-spacing: 0.04em; }
+
+/* back */
+.back { font-size: 6.6pt; line-height: 1.38; }
+.back h4 { margin: 0 0 0.6mm; font-size: 5.6pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+.back section + section { margin-top: 2.2mm; }
+.back table { border-collapse: collapse; width: 100%; }
+.back td { padding: 0.15mm 0; vertical-align: baseline; }
+.back td.k { font-weight: 700; width: 12mm; }
+.back td.g { font-family: "Kalam", cursive; font-weight: 700; color: var(--accent); font-size: 8.5pt; width: 5mm; line-height: 1.1; }
+.back .marks { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.3mm 1mm; }
+.back .marks span b { font-family: "Kalam", cursive; color: var(--accent); font-size: 8.5pt; margin-right: 0.8mm; }
+.back ul { list-style: none; margin: 0; padding: 0; }
+.back li { display: flex; gap: 1.4mm; align-items: baseline; }
+.back li::before { content: ""; flex: none; width: 1.8mm; height: 1.8mm; border: 0.25mm solid var(--accent); border-radius: 0.3mm; transform: translateY(0.25mm); }
+.back .foot { margin-top: auto; font-size: 5.3pt; color: var(--muted); }
+
+/* instructions page */
+.inst { padding: 18mm 22mm; font-size: 10.5pt; line-height: 1.5; }
+.inst h1 { font-family: "Kalam", cursive; color: var(--ink); font-size: 26pt; margin: 0 0 2mm; }
+.inst h2 { font-size: 12pt; margin: 8mm 0 2mm; }
+.inst ol { padding-left: 6mm; max-width: 170mm; }
+.inst li { margin-bottom: 1.5mm; }
+.inst p { max-width: 170mm; }
+.dot{font-size:1.5em;line-height:0;vertical-align:-0.06em}
+</style>
+</head>
+<body>
+
+<div class="sheet" id="cards"></div>
+
+<div class="sheet inst">
+  <h1>Next Page card · level 0</h1>
+  <p>Print <strong>page 1 only</strong>, single-sided, at <strong>Actual size / 100%</strong> (turn off “Fit to page”). One sheet makes four cards.</p>
+  <h2>Make a card</h2>
+  <ol>
+    <li>Cut along the dashed lines. You get four strips, each 148 × 105 mm (A6).</li>
+    <li>Fold each strip in half along the dotted line, printed sides out. The rule card is the front and the reference is the back.</li>
+    <li>Glue or tape it inside the front cover. Double-sided tape at the top edge lets you lift it to read the back.</li>
+  </ol>
+  <h2>Sizing</h2>
+  <p>The folded card is A7 (74 × 105 mm). If your notebook is also A7, trim 2 to 3 mm off the edges so it sits inside the cover. For an A6 notebook it fits with room to spare. Keep the spare cards for your next notebooks.</p>
+</div>
+
+<template id="front">
+  <div class="front">
+    <div class="t"><b>Next Page</b><small>level 0</small></div>
+    <p>1. Date the page. List today.</p>
+    <p>2. <span class="hl">New → next page.</span></p>
+    <p>3. Dates → tell your phone.</p>
+    <p>&nbsp;</p>
+    <p><span class="dot">•</span> task &nbsp;× done &nbsp;› moved</p>
+    <p><s>&nbsp;line&nbsp;</s> dropped</p>
+    <p>Moved 3×? Do it or drop it.</p>
+    <p>Sunday: flip back, 5 min.</p>
+    <div class="foot">Turn over for the details</div>
+  </div>
+</template>
+
+<template id="back">
+  <div class="back">
+    <section>
+      <h4>New things</h4>
+      <table>
+        <tr><td class="k">Now</td><td>Deal with it. Don’t write it down.</td></tr>
+        <tr><td class="k">Tomorrow</td><td>Next page. The default.</td></tr>
+        <tr><td class="k">Today</td><td>Under today’s list, only if it can’t wait.</td></tr>
+        <tr><td class="k">Dated</td><td>Say it to your phone: “Add … on Thursday at 2.” Not on paper.</td></tr>
+      </table>
+    </section>
+    <section>
+      <h4>Each day</h4>
+      <ul>
+        <li>Date at the top, then today’s list</li>
+        <li>Cross off as you go</li>
+        <li>Leftovers: › and copy to the next page</li>
+      </ul>
+    </section>
+    <section>
+      <h4>Sunday · 5 min</h4>
+      <ul>
+        <li>Flip back through the week</li>
+        <li>Anything moved three times: do it, drop it or give it a date</li>
+        <li>Check the phone calendar for next week</li>
+      </ul>
+    </section>
+    <section>
+      <h4>That’s all</h4>
+      <p style="margin:0">Add nothing for two weeks. After that, add a rule only for a problem you’ve hit twice.</p>
+    </section>
+    <div class="foot">Full guide: levels 1–3, back lists, evening sort.</div>
+  </div>
+</template>
+
+<script>
+  var sheet = document.getElementById('cards');
+  var f = document.getElementById('front').innerHTML;
+  var b = document.getElementById('back').innerHTML;
+  var html = '';
+  [0, 1].forEach(function (r) {
+    [[0, b], [1, f], [2, b], [3, f]].forEach(function (p) {
+      html += '<div class="cell c' + p[0] + ' r' + r + '">' + p[1] + '</div>';
+    });
+  });
+  html += '<div class="cut-v"></div><div class="cut-h"></div><div class="fold-v f1"></div><div class="fold-v f2"></div>';
+  html += '<span class="tag" style="left:75.5mm; top:101.2mm">fold</span><span class="tag" style="left:224mm; top:101.2mm">fold</span>';
+  html += '<span class="tag" style="left:149.8mm; top:101.2mm">✂ cut</span>';
+  sheet.innerHTML = html;
+  // the front and back are separate DOM copies: fix their layout classes
+  Array.prototype.forEach.call(sheet.querySelectorAll('.cell'), function (c) {
+    var inner = c.firstElementChild;
+    if (inner) { c.className += ' ' + inner.className; inner.style.display = 'contents'; }
+  });
+</script>
+</body>
+</html>

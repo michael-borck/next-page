@@ -10,6 +10,7 @@ Today's list stays closed so you can finish it. Five marks, a two-minute evening
 |---|---|
 | `next-page-guide.html` | The full v2 guide (interactive page) |
 | `print/card-a7.html` | Source for the A7 inside-cover card (4 per A4 sheet, fold in half) |
+| `print/card-a7-level0.html` | Source for the level-0 card: just the three starting rules |
 | `print/foldup-guide.html` | Source for the 8-page A7 fold-up booklet (one A4 sheet, one cut) |
 | `print/*.pdf` | Rendered printables. Print page 1 only, single-sided, at 100% |
 | `archive/pocket-flip-notebook-v1.html` | The original v1 guide |
