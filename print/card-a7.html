@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Next Page card, A7</title>
+<title>Next Page card with add-ons</title>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
 <style>
 @page { size: A4 landscape; margin: 0; }
@@ -31,6 +31,7 @@ body { font-family: "Public Sans", Helvetica, Arial, sans-serif; color: #17211E;
 .front p { margin: 0; font-size: 10.5pt; line-height: 1.5; white-space: nowrap; }
 .front .hl { background: linear-gradient(transparent 14%, var(--hl) 14% 86%, transparent 86%); padding: 0 1mm; font-weight: 700; }
 .front s { text-decoration-thickness: 0.35mm; }
+.front p.add { color: #2F6F55; }
 .front .foot { margin-top: auto; font-family: "Public Sans", sans-serif; font-size: 5.5pt; color: var(--muted); letter-spacing: 0.04em; }
 
 /* back */
@@ -63,7 +64,7 @@ body { font-family: "Public Sans", Helvetica, Arial, sans-serif; color: #17211E;
 <div class="sheet" id="cards"></div>
 
 <div class="sheet inst">
-  <h1>Next Page card</h1>
+  <h1>Next Page card with add-ons</h1>
   <p>Print <strong>page 1 only</strong>, single-sided, at <strong>Actual size / 100%</strong> (turn off “Fit to page”). One sheet makes four cards.</p>
   <h2>Make a card</h2>
   <ol>
@@ -77,17 +78,18 @@ body { font-family: "Public Sans", Helvetica, Arial, sans-serif; color: #17211E;
 
 <template id="front">
   <div class="front">
-    <div class="t"><b>Next Page</b><small>inside cover</small></div>
+    <div class="t"><b>Next Page</b><small>+ add-ons</small></div>
     <p><span class="hl">New → next page.</span></p>
     <p>Draw the line. Finish above it.</p>
+    <p>Dates → tell your phone.</p>
     <p><span class="dot">•</span> task &nbsp;× done &nbsp;› moved</p>
     <p>– note &nbsp;<s>&nbsp;line&nbsp;</s> dropped</p>
-    <p>Focus first, 30 min.</p>
-    <p>Night: Act · Defer · File · Toss</p>
-    <p>Last line: energy + one word</p>
     <p>Moved 3×? Shrink, date or drop.</p>
-    <p>Sunday: 10-minute review.</p>
-    <div class="foot">Turn over for marks and the weekly review</div>
+    <p class="add">+ Focus first, 30 min.</p>
+    <p class="add">+ Night: Act · Defer · File · Toss</p>
+    <p class="add">+ Last line: energy + one word</p>
+    <p class="add">+ Sunday: 10-minute review.</p>
+    <div class="foot">+ marks an add-on · turn over for more</div>
   </div>
 </template>
 
@@ -112,13 +114,13 @@ body { font-family: "Public Sans", Helvetica, Arial, sans-serif; color: #17211E;
       <h4>Evening sort · 2 min</h4>
       <table>
         <tr><td class="k">Act</td><td>Two minutes? Do it now. ×</td></tr>
-        <tr><td class="k">Defer</td><td>› tomorrow, or Later with a date</td></tr>
+        <tr><td class="k">Defer</td><td>› tomorrow, or date it in your phone</td></tr>
         <tr><td class="k">File</td><td>› Now, Someday or Waiting for</td></tr>
         <tr><td class="k">Toss</td><td>Line through it</td></tr>
       </table>
     </section>
     <section>
-      <h4>Weekly · 10 min</h4>
+      <h4>Weekly review · 10 min</h4>
       <ul>
         <li>Sort every leftover dot</li>
         <li>Look two weeks ahead</li>
@@ -128,7 +130,7 @@ body { font-family: "Public Sans", Helvetica, Arial, sans-serif; color: #17211E;
         <li>Pick next week’s focus</li>
       </ul>
     </section>
-    <div class="foot">Monthly: prune Someday, drop unused extras.</div>
+    <div class="foot">Monthly: does each add-on still earn its place?</div>
   </div>
 </template>
 

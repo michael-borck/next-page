@@ -181,13 +181,15 @@ table.key td.verb { font-weight: 700; color: var(--accent); width: 90px; }
 .part > .callout { background: var(--surface); }
 .callout p { margin: 0; }
 
-/* levels */
-.ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 28px; }
-.rung { background: var(--surface); border-radius: 10px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.rung .lvl { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
-.rung h3 { font-size: 1.15rem; }
-.rung ul { padding-left: 1.1em; margin: 0; font-size: 0.95rem; }
-.rung .when { margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 0.88rem; color: var(--muted); }
+/* core and add-ons */
+.core { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 24px; }
+.core > div { background: var(--surface); border-radius: 10px; padding: 16px 18px; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 2px 10px; align-items: start; }
+.core .n { grid-row: span 2; font-family: "Kalam", "Segoe Print", cursive; font-weight: 700; font-size: 1.6rem; color: var(--accent); line-height: 1; }
+.core b { font-size: 1.02rem; }
+.core span:not(.n) { font-size: 0.93rem; color: var(--muted); }
+table.key.addons { max-width: none; min-width: 720px; }
+table.key.addons td { font-size: 0.9rem; }
+table.key.addons td:first-child { white-space: nowrap; }
 
 .checks { list-style: none; padding: 0; }
 .checks li { display: flex; gap: 12px; align-items: baseline; }
@@ -221,7 +223,7 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
   body { font-size: 12pt; }
   .tabs { display: none; }
   section.part { break-inside: avoid; border: none; padding-block: 16px; }
-  .page, .cheat, figure, .rung { break-inside: avoid; box-shadow: none; }
+  .page, .cheat, figure, .core > div { break-inside: avoid; box-shadow: none; }
   .page { border: 1px solid #999; }
 }
 </style>
@@ -232,13 +234,14 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
   <div>
     <h1>Next Page</h1>
     <p class="tag">A pocket notebook system with one rule: anything new goes on tomorrow’s page.</p>
-    <p class="lede">Today’s list stays closed, so you can finish it. Five marks, a two-minute evening sort, and extra lists you add only when you notice you need them. It works in a $1 top-spiral notebook or one you staple together yourself.</p>
+    <p class="lede">Today’s list stays closed, so you can finish it. A small fixed core of three rules and five marks, plus add-ons you plug in only when something slips twice. It works in a $1 top-spiral notebook or one you staple together yourself.</p>
     <ul class="toc">
       <li><a href="#rule">The rule</a></li>
       <li><a href="#marks">Five marks</a></li>
       <li><a href="#day">A day on paper</a></li>
-      <li><a href="#levels">Start small</a></li>
-      <li><a href="#back">Lists at the back</a></li>
+      <li><a href="#core">The core</a></li>
+      <li><a href="#addons">Add-ons</a></li>
+      <li><a href="#back">Back pages</a></li>
       <li><a href="#review">Look back</a></li>
       <li><a href="#behind">Falling behind</a></li>
       <li><a href="#setup">Set up</a></li>
@@ -327,12 +330,12 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
           <tr><td class="sym">•</td><td>Task</td><td>A dot before the words</td></tr>
           <tr><td class="sym">×</td><td>Done</td><td>Draw the × over the dot. The words stay readable.</td></tr>
           <tr><td class="sym"><s>&nbsp;abc&nbsp;</s></td><td>Dropped</td><td>A line through the words. Dropping is a decision, and it counts.</td></tr>
-          <tr><td class="sym">›</td><td>Moved</td><td>Over the dot, then write where: “› Sat”, “› Later”, “› Someday”</td></tr>
+          <tr><td class="sym">›</td><td>Moved</td><td>Over the dot, then write where: “› Sat”, “› phone”, “› Someday”</td></tr>
           <tr><td class="sym">–</td><td>Note</td><td>A fact worth keeping: “– quote was $180”</td></tr>
         </tbody>
       </table>
       <p>Optional sixth mark: <span class="hand">○</span> for an appointment or event. Use it if you keep times in the notebook. Skip it if your phone calendar does that job.</p>
-      <p>That’s all. Ideas are just notes: copy the good ones to a back list during the evening sort.</p>
+      <p>That’s all. Ideas are just notes: copy the good ones to a back page on the Sunday flip.</p>
     </div>
     <div class="figs">
       <figure>
@@ -343,7 +346,7 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
             <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Book dentist</span></div>
             <div class="ln done"><span class="st"></span><span class="sy">×</span><span class="tx">Post parcel</span></div>
             <div class="ln struck"><span class="st"></span><span class="sy">•</span><span class="tx">Card for Pat’s party</span></div>
-            <div class="ln"><span class="st"></span><span class="sy">›</span><span class="tx">Renew rego › Later</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">›</span><span class="tx">Renew rego › phone</span></div>
             <div class="ln"><span class="st"></span><span class="sy">–</span><span class="tx">Quote was $180</span></div>
             <div class="ln"><span class="st"></span><span class="sy">○</span><span class="tx">2pm Car service</span></div>
           </div>
@@ -356,13 +359,13 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
 
 <section class="part" id="day">
   <h2>One day on paper</h2>
-  <p>Follow Friday from the night before to Saturday morning. Watch where new things go.</p>
+  <p>Follow Friday from the night before to Saturday morning. Watch where new things go. This day uses the core plus two add-ons, the focus line and the evening sort. Leave them out and it still works.</p>
 
   <div class="stepper">
     <div class="tabs" role="tablist" aria-label="Stage of the day">
       <button role="tab" id="tab0" aria-selected="true" aria-controls="stage" data-i="0">Night before</button>
       <button role="tab" id="tab1" aria-selected="false" aria-controls="stage" data-i="1" tabindex="-1">During the day</button>
-      <button role="tab" id="tab2" aria-selected="false" aria-controls="stage" data-i="2" tabindex="-1">Evening sort</button>
+      <button role="tab" id="tab2" aria-selected="false" aria-controls="stage" data-i="2" tabindex="-1">Evening sort (add-on)</button>
       <button role="tab" id="tab3" aria-selected="false" aria-controls="stage" data-i="3" tabindex="-1">Next morning</button>
     </div>
     <div class="stage" id="stage" role="tabpanel" aria-labelledby="tab0" aria-live="polite">
@@ -372,98 +375,99 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
   </div>
 
   <div class="callout">
-    <p><strong>Moved three times? Change it.</strong> Break it into a smaller first step, give it a date on the Later page, or put a line through it. A task you keep moving is a decision you haven’t made yet.</p>
+    <p><strong>Moved three times? Change it.</strong> Break it into a smaller first step, give it a date in your phone, or put a line through it. A task you keep moving is a decision you haven’t made yet.</p>
   </div>
 
-  <h3 style="margin-top:32px">The evening sort: Defer, Act, File, Toss</h3>
-  <p>Read down today’s page. Every open dot gets one of four verbs. It takes two minutes.</p>
+  <h3 style="margin-top:32px">Add-on: the evening sort (Defer, Act, File, Toss)</h3>
+  <p>If leftover dots start piling up, read down today’s page before you stop work. Every open dot gets one of four verbs. It takes two minutes.</p>
   <div class="scroll">
     <table class="key">
       <thead><tr><th scope="col">Verb</th><th scope="col">When</th><th scope="col">Mark</th></tr></thead>
       <tbody>
         <tr><td class="verb">Act</td><td>It takes two minutes. Do it now.</td><td class="sym">×</td></tr>
-        <tr><td class="verb">Defer</td><td>Still matters soon. Move it to tomorrow’s page, or to Later with a date.</td><td class="sym">›</td></tr>
+        <tr><td class="verb">Defer</td><td>Still matters soon. Move it to tomorrow’s page, or give it a date in your phone.</td><td class="sym">›</td></tr>
         <tr><td class="verb">File</td><td>Matters, but not this week. Move it to a back list: Now, Someday or Waiting for.</td><td class="sym">›</td></tr>
         <tr><td class="verb">Toss</td><td>No longer matters.</td><td class="sym"><s>&nbsp;abc&nbsp;</s></td></tr>
       </tbody>
     </table>
   </div>
-  <p>Then write one line at the bottom of the page: your energy out of 10 and one word for the day. It takes ten seconds and, after a month, shows you what good days have in common.</p>
+  <p>Another add-on, the daily line: write one line at the bottom of the page, your energy out of 10 and one word for the day. It takes ten seconds and, after a month, shows you what good days have in common.</p>
 </section>
 
-<section class="part" id="levels">
-  <h2>Start small, add only what you need</h2>
-  <p>No system suits everyone from day one. This one starts with almost nothing and grows when something specific goes wrong. Move up a level only when the one below feels automatic.</p>
-  <div class="ladder">
-    <div class="rung">
-      <span class="lvl">Level 0 · week 1</span>
-      <h3>The rule</h3>
-      <ul>
-        <li>A dated page each day</li>
-        <li>New things go on the next page</li>
-        <li>Draw the line, finish above it</li>
-        <li>Five marks</li>
-      </ul>
-      <p class="when">Move up when you reach for the notebook without thinking.</p>
-    </div>
-    <div class="rung">
-      <span class="lvl">Level 1 · week 2</span>
-      <h3>The rhythm</h3>
-      <ul>
-        <li>A focus line at the top, done first</li>
-        <li>Evening sort: Defer, Act, File, Toss</li>
-        <li>Energy and one word at the bottom</li>
-        <li>Moved three times? Change it</li>
-        <li>Ten-minute weekly review</li>
-      </ul>
-      <p class="when">Move up when things start slipping through the gaps.</p>
-    </div>
-    <div class="rung">
-      <span class="lvl">Level 2 · as needed</span>
-      <h3>Lists at the back</h3>
-      <ul>
-        <li>Later: anything with a date</li>
-        <li>Now: 3 to 5 active projects</li>
-        <li>Waiting for</li>
-        <li>Someday</li>
-      </ul>
-      <p class="when">Add each one when its trigger happens (see below).</p>
-    </div>
-    <div class="rung">
-      <span class="lvl">Level 3 · optional</span>
-      <h3>Extras</h3>
-      <ul>
-        <li>Habit grid</li>
-        <li>Spend log</li>
-        <li>30-minute tally</li>
-        <li>Countdown plan for a deadline</li>
-        <li>Prompt list for the weekly review</li>
-      </ul>
-      <p class="when">Drop any extra you haven’t used for two weeks.</p>
-    </div>
+<section class="part" id="core">
+  <h2>The core</h2>
+  <p>This is the whole system. It stays fixed, and it’s enough on its own. Run it for two weeks before you add anything.</p>
+  <div class="core">
+    <div><span class="n">1</span><b>Date the page. List today.</b><span>One page a day, front of the sheet only. Rule a line under the list.</span></div>
+    <div><span class="n">2</span><b>New → next page.</b><span>Anything that turns up goes on tomorrow’s page. Under today’s line only if it can’t wait.</span></div>
+    <div><span class="n">3</span><b>Dates → tell your phone.</b><span>Say it to the assistant when it comes up. Paper can’t remind you on Thursday at 2.</span></div>
+    <div><span class="n">•</span><b>Five marks.</b><span>• task, × done, › moved, – note, a line through for dropped.</span></div>
+    <div><span class="n">3×</span><b>Moved three times?</b><span>Shrink it to a first step, give it a date, or strike it out.</span></div>
+    <div><span class="n">7</span><b>Sunday: flip back, five minutes.</b><span>Look through the week, deal with anything stuck, check next week in the phone.</span></div>
   </div>
+  <div class="callout"><p><strong>Missed some days?</strong> Date today’s page, carry over what still matters, and carry on. The core is built to be restarted.</p></div>
+</section>
 
-  <h3 style="margin-top:36px">Add it when this happens</h3>
+<section class="part" id="addons">
+  <h2>Add-ons</h2>
+  <p>Everything beyond the core is an add-on. Plug one in when something slips twice; unplug it when it stops earning its place. The ones below are suggestions, not a ladder. Change them, skip them, or make your own.</p>
+
+  <h3 style="margin-top:28px">The five add-on rules</h3>
+  <p>Any add-on, ours or yours, should be able to answer all five. If it can’t, it will turn into upkeep.</p>
   <div class="scroll">
     <table class="key" style="max-width:780px">
-      <thead><tr><th scope="col">Add</th><th scope="col">The first time you notice…</th></tr></thead>
       <tbody>
-        <tr><td><strong>Later</strong></td><td>a date slipped, or you wrote down something you can’t do before next month</td></tr>
-        <tr><td><strong>Now</strong></td><td>a goal you care about never shows up on a day page</td></tr>
-        <tr><td><strong>Waiting for</strong></td><td>you forgot that someone owed you something</td></tr>
-        <tr><td><strong>Someday</strong></td><td>tomorrow’s page fills with things that aren’t for this week</td></tr>
-        <tr><td><strong>30-minute tally</strong></td><td>you end the day feeling you did nothing, or you keep avoiding one big task</td></tr>
-        <tr><td><strong>Countdown plan</strong></td><td>a project has a deadline and you keep putting off starting it</td></tr>
-        <tr><td><strong>Habit grid</strong></td><td>you’re trying to build one particular habit (three at most)</td></tr>
-        <tr><td><strong>Prompt list</strong></td><td>the weekly review feels like you’re missing things</td></tr>
+        <tr><td class="verb">Trigger</td><td>The slip it fixes, hit twice. Never “just because”.</td></tr>
+        <tr><td class="verb">Place</td><td>One back page, or one line on the day page. Never a new daily spread.</td></tr>
+        <tr><td class="verb">Hook</td><td>It rides on something you already do: writing the list, dating the next page, the Sunday flip. No new rituals.</td></tr>
+        <tr><td class="verb">Cost</td><td>Say it in minutes a week. Anything over five needs a good reason.</td></tr>
+        <tr><td class="verb">Exit</td><td>When you stop. On the first Sunday of each month, ask every add-on whether it still earns its place. Not opened in a month? Strike it.</td></tr>
       </tbody>
     </table>
   </div>
+
+  <h3 style="margin-top:32px">Suggested add-ons</h3>
+  <div class="scroll">
+    <table class="key addons">
+      <thead><tr><th scope="col">Add-on</th><th scope="col">Add it when…</th><th scope="col">Place and hook</th><th scope="col">Cost</th><th scope="col">Exit</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Focus line</strong></td><td>the easy things get done and the one that matters waits</td><td>Top of the day page, done first for 30 minutes. Written with the list.</td><td>none</td><td>You start the hard thing first without it.</td></tr>
+        <tr><td><strong>Evening sort</strong></td><td>leftover dots pile up for days</td><td>Today’s page: Act, Defer, File or Toss each open dot. Your last look before you stop work.</td><td>2 min a day</td><td>Leftovers are rare.</td></tr>
+        <tr><td><strong>Daily line</strong></td><td>you want to know what good days have in common</td><td>Bottom of the day page: energy out of 10 and one word. Written as you date the next page.</td><td>10 sec a day</td><td>After a month, read it back once. Stop if it tells you nothing new.</td></tr>
+        <tr><td><strong>Waiting for</strong></td><td>you forgot someone owed you something</td><td>Back page: who, what, date asked. Read on the Sunday flip.</td><td>1 min a week</td><td>Empty for a month.</td></tr>
+        <tr><td><strong>Now</strong></td><td>a goal never shows up on a day page</td><td>Back page: five projects at most, each with its next step. Sunday flip.</td><td>2 min a week</td><td>Your projects fit on day pages.</td></tr>
+        <tr><td><strong>Someday</strong></td><td>tomorrow’s page fills with not-this-week things</td><td>Back page. Write and forget. Pruned on the monthly check.</td><td>1 min a week</td><td>Not opened in a month.</td></tr>
+        <tr><td><strong>Later</strong></td><td>you’d rather keep dates on paper than in a phone</td><td>Back page by month. On the Sunday flip, copy the next two weeks onto day pages.</td><td>2 min a week</td><td>You move dates to the phone. Keep dates in one place only.</td></tr>
+        <tr><td><strong>Weekly review</strong></td><td>the five-minute flip keeps missing things</td><td>Replaces the Sunday flip: the checklist below, ending on the Weeks page.</td><td>10 min a week</td><td>Two Sundays skipped: go back to the five-minute flip.</td></tr>
+        <tr><td><strong>One habit</strong></td><td>you want to start or keep one habit</td><td>One row of seven boxes on the Weeks page. Tick yesterday’s box as you date the new page.</td><td>5 sec a day</td><td>Four mostly-ticked weeks: it’s a habit, stop tracking. Two weeks ignored: strike it.</td></tr>
+        <tr><td><strong>30-minute tally</strong></td><td>you end days feeling you did nothing, or keep avoiding one big task</td><td>A stroke on the day page for each half hour of real focus.</td><td>seconds</td><td>The big task is moving.</td></tr>
+        <tr><td><strong>Countdown plan</strong></td><td>a deadline project you keep putting off</td><td>Back page: write the deadline at the bottom and work up to today. Sunday flip.</td><td>5 min once</td><td>The deadline passes. Tear it out.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>One habit at a time, and one new add-on at a time, so you can tell whether it worked. The <a href="https://michael-borck.github.io/slip-deck/">Slip Deck</a> lists 24 slips and the fix for each.</p>
+
+  <h3 style="margin-top:32px">Make your own</h3>
+  <p>Write your add-on on the back page it uses, in five lines. If you can’t fill one in, it isn’t ready.</p>
+  <figure style="margin-top:20px">
+    <div class="page" aria-label="A home-made add-on written on a back page">
+      <div class="coil"></div>
+      <div class="body">
+        <div class="title">Reading list <small>add-on</small></div>
+        <div class="ln"><span class="st"></span><span class="sy">–</span><span class="tx">Trigger: forgot 2 book recs</span></div>
+        <div class="ln"><span class="st"></span><span class="sy">–</span><span class="tx">Place: this page</span></div>
+        <div class="ln"><span class="st"></span><span class="sy">–</span><span class="tx">Hook: someone recommends one</span></div>
+        <div class="ln"><span class="st"></span><span class="sy">–</span><span class="tx">Cost: seconds</span></div>
+        <div class="ln"><span class="st"></span><span class="sy">–</span><span class="tx">Exit: notebook ends</span></div>
+      </div>
+    </div>
+    <figcaption>Five lines at the top of the page. The list goes underneath.</figcaption>
+  </figure>
 </section>
 
 <section class="part" id="back">
-  <h2>Lists at the back</h2>
-  <p>Turn the notebook over and start from the back. These lists outlast any single day. Most people need two of them. Few need all four.</p>
+  <h2>Back pages</h2>
+  <p>Each list at the back is an add-on. Turn the notebook over and start from the back. These lists outlast any single day. Most people need one or two. Few need all four.</p>
   <div class="figs row" style="margin-top:32px; gap:32px">
     <figure>
       <div class="page tall" aria-label="Later list grouped by month">
@@ -480,7 +484,7 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
           <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Car service due</span></div>
         </div>
       </div>
-      <figcaption><strong>Later.</strong> Anything with a date past this week. If you use a phone calendar instead, use it for everything with a date. Keep dates in one place only.</figcaption>
+      <figcaption><strong>Later.</strong> Only if you’d rather keep dates on paper than in your phone. Keep dates in one place only.</figcaption>
     </figure>
 
     <figure>
@@ -534,30 +538,30 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
 </section>
 
 <section class="part" id="review">
-  <h2>Look back, in three sizes</h2>
-  <p>Reflection only sticks if it’s small. Each of these fits in the time you have.</p>
+  <h2>Look back</h2>
+  <p>Reflection only sticks if it’s small. The Sunday flip is core. The rest are add-ons.</p>
   <div class="three">
     <div>
-      <p class="when">Every evening · 10 seconds</p>
-      <h3>One line</h3>
-      <p>Energy out of 10 and one word, at the bottom of the day page. With the 30-minute tally extra, add a stroke for each half hour of real focus.</p>
+      <p class="when">Every week · 5 minutes · core</p>
+      <h3>The Sunday flip</h3>
+      <p>Flip back through the week. Anything moved three times: shrink it, date it or drop it. Check next week in your phone.</p>
     </div>
     <div>
-      <p class="when">Every week · 10 minutes</p>
-      <h3>The review</h3>
-      <p>The checklist below, finishing with three short answers on the Weeks page at the back.</p>
+      <p class="when">Every week · 10 minutes · add-on</p>
+      <h3>The weekly review</h3>
+      <p>If the flip keeps missing things: the checklist below, finishing with three short answers on the Weeks page at the back.</p>
     </div>
     <div>
-      <p class="when">Every month · 5 minutes</p>
-      <h3>Prune</h3>
-      <p>Cut the Someday list. Drop any extra you’ve stopped using. Ask whether everything on Now still deserves a place.</p>
+      <p class="when">First Sunday of the month · 5 minutes</p>
+      <h3>Check your add-ons</h3>
+      <p>Does each add-on still earn its place? Strike any you haven’t opened. Cut the Someday list.</p>
     </div>
   </div>
 
   <div class="split">
     <div>
-      <h3 style="margin-top:12px">Weekly review</h3>
-      <p>Pick a regular time, such as Sunday evening.</p>
+      <h3 style="margin-top:12px">Weekly review (add-on)</h3>
+      <p>It replaces the Sunday flip. Hang it on something you already do on Sunday.</p>
       <ul class="checks">
         <li>Flip through the week. Give every plain dot a verb: Act, Defer, File or Toss.</li>
         <li>Look two weeks ahead on the Later page or your calendar. Copy anything due onto the right day page.</li>
@@ -597,7 +601,7 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
   <div class="three">
     <div>
       <h3>Missed some days</h3>
-      <p>Don’t fill in the gap. Date today’s page, copy over only what still matters, and carry on. The old pages can wait for the weekly review.</p>
+      <p>Don’t fill in the gap. Date today’s page, copy over only what still matters, and carry on. The old pages can wait for the Sunday flip.</p>
     </div>
     <div>
       <h3>Can’t finish the list</h3>
@@ -619,8 +623,8 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
         <li><strong>Copy the card</strong> from the end of this guide onto the inside cover.</li>
         <li><strong>Write day pages on the front of each sheet only.</strong> Tomorrow then stays one lift away, and any page can be torn out without losing something on its back.</li>
         <li><strong>Skip the index.</strong> The date is the address. Anything worth finding again belongs in a list at the back.</li>
-        <li><strong>Decide where dates live:</strong> your phone calendar or the Later page. Pick one.</li>
-        <li><strong>Leave the back empty</strong> until a trigger tells you to start a list.</li>
+        <li><strong>Dates live in your phone.</strong> If you’d rather keep them on paper, that’s the Later add-on. Pick one place.</li>
+        <li><strong>Leave the back empty</strong> until an add-on earns its place.</li>
       </ol>
       <p>The notebook is full when the day pages reach the lists at the back. Copy anything still open onto the first page of the next notebook, carry over the back lists you still use, and write the end date on the cover.</p>
     </div>
@@ -630,7 +634,7 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
           <div class="coil"></div>
           <div class="body">
             <div class="title">Fri 27 Nov <small>page one</small></div>
-            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx"><span class="hl">Focus</span> garage, 30 min</span></div>
+            <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Garage, 30 min</span></div>
             <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Call plumber</span></div>
             <div class="ln"><span class="st"></span><span class="sy">•</span><span class="tx">Buy printer ink</span></div>
             <div class="close-line"></div>
@@ -682,7 +686,7 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
 
 <section class="part" id="card">
   <h2>Inside-cover card</h2>
-  <p>Copy the left-hand card into the front cover. It’s the whole system.</p>
+  <p>Copy the card into the front cover, or print the core card. It’s the whole core. Add a line for each add-on you plug in.</p>
   <div class="card-wrap">
     <figure>
       <div class="page" aria-label="Handwritten summary card for the inside cover">
@@ -690,49 +694,46 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
         <div class="body">
           <div class="title">Next Page <small>inside cover</small></div>
           <div class="free">
-            <p><span class="hl">New → next page.</span></p>
-            <p>Draw the line. Finish above it.</p>
+            <p>1. Date the page. List today.</p>
+            <p>2. <span class="hl">New → next page.</span></p>
+            <p>3. Dates → tell your phone.</p>
             <p>• task &nbsp;× done &nbsp;› moved</p>
             <p>– note &nbsp;<s>line</s> dropped</p>
-            <p>Focus first, 30 min.</p>
-            <p>Night: Act · Defer · File · Toss</p>
-            <p>Last line: energy + one word</p>
             <p>Moved 3×? Shrink, date or drop.</p>
-            <p>Sunday: 10-minute review.</p>
+            <p>Sunday: flip back, 5 min.</p>
+            <p>Missed days? Date today.</p>
           </div>
         </div>
       </div>
-      <figcaption>Nine lines. Everything else is optional.</figcaption>
+      <figcaption>Eight lines: the core. Everything else is an add-on.</figcaption>
     </figure>
     <div class="cheat">
       <div class="cols">
         <div>
           <h3>Every day</h3>
           <ul>
-            <li>Date the page. Focus line first.</li>
-            <li>Rule a line under the plan.</li>
+            <li>Date the page and list today.</li>
+            <li>Rule a line under the list.</li>
             <li>New things go on the next page.</li>
             <li>Same-day only goes under the line.</li>
-            <li>Evening: sort every dot, write one line.</li>
+            <li>Dates go to your phone.</li>
           </ul>
         </div>
         <div>
-          <h3>Every week</h3>
+          <h3>Every Sunday</h3>
           <ul>
-            <li>Sort leftover dots.</li>
-            <li>Look two weeks ahead.</li>
-            <li>Now: five or fewer, each with a next step.</li>
-            <li>Chase Waiting for.</li>
-            <li>Weeks page: score, good, moved, stop.</li>
-            <li>Pick next week’s focus.</li>
+            <li>Flip back through the week.</li>
+            <li>Moved three times: shrink, date or drop.</li>
+            <li>Check next week in your phone.</li>
+            <li>Read any back pages you use.</li>
           </ul>
         </div>
         <div>
-          <h3>Every month</h3>
+          <h3>Add-ons</h3>
           <ul>
-            <li>Prune Someday.</li>
-            <li>Drop unused extras.</li>
-            <li>Add a list only when its trigger happens.</li>
+            <li>Only for a slip you’ve hit twice.</li>
+            <li>One at a time.</li>
+            <li>First Sunday of the month: does each still earn its place?</li>
           </ul>
         </div>
         <div>
@@ -761,10 +762,12 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
         <tr><td><strong>The four sort verbs</strong></td><td>D-A-F-T, Andrea Cannavina</td></tr>
         <tr><td><strong>Waiting for, Someday, the weekly review</strong></td><td><em>Getting Things Done</em>, David Allen</td></tr>
         <tr><td><strong>30-minute starts, the tally, countdown plans</strong></td><td><em>The Now Habit</em>, Neil Fiore</td></tr>
+        <tr><td><strong>Hooking add-ons onto habits you already have</strong></td><td>Habit stacking: BJ Fogg, James Clear</td></tr>
       </tbody>
     </table>
   </div>
-  <p style="margin-top:20px">Version 2. Made for a top-spiral pocket notebook, and it works just as well in a stapled one.</p>
+  <p style="margin-top:20px"><a href="acknowledgements.html">Full acknowledgements and a comparison with sixteen systems</a>.</p>
+  <p>Version 3: core and add-ons. Made for a top-spiral pocket notebook, and it works just as well in a stapled one.</p>
 </footer>
 </div>
 
@@ -825,7 +828,7 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
       title: 'Two minutes: Act, Defer, File, Toss',
       say: [
         'Read down Friday and settle every open dot.',
-        'Act: the school call takes two minutes, so do it and cross it off. Defer: printer ink moves to Saturday. Renew rego has now moved three times, so it gets a date on the Later page. File: solar quotes go to Someday. Toss: the party is off, so the card gets a line through it.',
+        'Act: the school call takes two minutes, so do it and cross it off. Defer: printer ink moves to Saturday. Renew rego has now moved three times, so it gets a date in the phone. File: solar quotes go to Someday. Toss: the party is off, so the card gets a line through it.',
         'Last, one line at the bottom: energy 6, and the word “busy”.'
       ],
       pages: [
@@ -835,7 +838,7 @@ footer table.key { font-size: 0.9rem; max-width: 760px; }
           L('›', 'Buy printer ink › Sat'),
           L('×', 'Email Sam re Saturday', { done: true }),
           L('○', '2pm Car service'),
-          L('›', 'Renew rego › Later 3 Dec'),
+          L('›', 'Renew rego › phone 3 Dec'),
           L('›', 'Solar quotes › Someday'),
           L('•', 'Card for Pat’s party', { struck: true }),
           CLOSE,

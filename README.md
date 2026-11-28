@@ -1,8 +1,9 @@
 # Next Page
 
 A pocket flip-notebook system with one rule: **anything new goes on tomorrow's page.**
-Today's list stays closed so you can finish it. Five marks, a two-minute evening sort
-(Act, Defer, File, Toss), and extra lists you add only when you need them.
+Today's list stays closed so you can finish it. A small fixed core (three rules,
+five marks, a Sunday flip) and add-ons you plug in only when something slips twice.
+Every add-on states its trigger, place, hook, cost and exit.
 
 ## Files
 
@@ -10,9 +11,9 @@ Today's list stays closed so you can finish it. Five marks, a two-minute evening
 |---|---|
 | `index.html` | Landing page for the system: the three rules and links to every piece |
 | `acknowledgements.html` | Where the ideas come from: a table comparing Next Page with 16 systems (borrowed, shared, not used) |
-| `next-page-guide.html` | The full v2 guide (interactive page) |
-| `print/card-a7.html` | Source for the A7 inside-cover card (4 per A4 sheet, fold in half) |
-| `print/card-a7-level0.html` | Source for the level-0 card: just the three starting rules |
+| `next-page-guide.html` | The full guide, v3: core and add-ons (interactive page) |
+| `print/card-a7.html` | Source for the card with add-ons: core plus focus line, evening sort, daily line, weekly review (4 per A4 sheet, fold in half) |
+| `print/card-a7-core.html` | Source for the core card: just the three rules |
 | `print/foldup-guide.html` | Source for the 8-page A7 fold-up booklet (one A4 sheet, one cut) |
 | `print/*.pdf` | Rendered printables. Print page 1 only, single-sided, at 100% |
 | `archive/pocket-flip-notebook-v1.html` | The original v1 guide |
